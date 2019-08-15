@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_BGScroller : MonoBehaviour
+public class BGScroller : MonoBehaviour
 {
 	public float scrollSpeed;
 	public float tileSizeZ;

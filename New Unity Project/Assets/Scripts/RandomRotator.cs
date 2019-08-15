@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_RandomRotator : MonoBehaviour 
+public class RandomRotator : MonoBehaviour 
 {
 	public float tumble;
 	

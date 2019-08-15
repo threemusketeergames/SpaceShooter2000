@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
 	public GameObject shot;
 	public Transform shotSpawn;

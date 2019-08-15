@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 
-public class Done_GameController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
+    public static GameController Instance;
     public GameObject[] hazards;
     public Vector3 spawnValues;
     public int hazardCount;
@@ -20,6 +21,21 @@ public class Done_GameController : MonoBehaviour
     private bool restart;
     private int score;
 
+    public RocketSlotGrid RocketSlotGrid;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        RocketSlotGrid = GetComponent<RocketSlotGrid>();
+    }
     void Start()
     {
         gameOver = false;

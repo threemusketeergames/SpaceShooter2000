@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Done_EvasiveManeuver : MonoBehaviour
+public class EvasiveManeuver : MonoBehaviour
 {
-	public Done_Boundary boundary;
+	public Boundary boundary;
 	public float tilt;
 	public float dodge;
 	public float smoothing;
