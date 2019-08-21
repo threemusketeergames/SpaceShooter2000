@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
         currentSlot.y = Mathf.Ceil(currentSlot.y);
         Rigidbody = GetComponent<Rigidbody>();
     }
+   
     void Update ()
 	{
 		if (Input.GetButton("Fire1") && Time.time > nextFire) 
