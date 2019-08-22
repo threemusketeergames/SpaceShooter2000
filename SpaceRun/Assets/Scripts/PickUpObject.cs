@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpGenerator : MonoBehaviour
+public class PickUpObject : MonoBehaviour
 {
     public GameObject Ship;
 
@@ -11,7 +11,7 @@ public class PickUpGenerator : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Ship.GetComponent<PickUpController>().PowerUp();
+            Ship.GetComponent<PickUpController>().DeterminPowerUp();
             Destroy(gameObject);
 
 

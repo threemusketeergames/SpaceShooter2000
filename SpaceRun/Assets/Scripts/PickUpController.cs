@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour
 {
     public GameController Ship;
-
+    public GameObject ForceField;
     public Color CurrentColor = Color.black;
     public Renderer rend;
     
@@ -23,9 +23,25 @@ public class PickUpController : MonoBehaviour
         //Set time scale to normal
         Time.timeScale = 2f;
         Time.fixedDeltaTime = 2f;
+        //set force field to false at start
+        ForceField.SetActive(false);
+    }
+    public void DeterminPowerUp()
+    {
+        int number = Random.Range(1,15);
+        if(number <= 3)
+        {
+            PowerUpForcefield();
+        }else if( number > 3 & number <= 12)
+        {
+            PowerUpColor();
+        }else if( number >= 13)
+        {
+            //Buckshot power up
+        }
     }
 
-    public void PowerUp()
+    public void PowerUpColor()
     {
         //Add to the color then set again
         CurrentColor.g += 1f;
@@ -33,15 +49,27 @@ public class PickUpController : MonoBehaviour
         //Slow time down
         Time.timeScale -= 1f;
         Time.fixedDeltaTime -= 1f;
-        StartCoroutine(Example());
-        
+        StartCoroutine(TimeReturnColor());
 
     }
-    IEnumerator Example()
+    IEnumerator TimeReturnColor()
     {
         //reset time.
         yield return new WaitForSeconds(10);
         Time.fixedDeltaTime = 2f;
         Time.timeScale = 2f;
+    }
+
+    public void PowerUpForcefield()
+    {
+        ForceField.SetActive(true);
+        StartCoroutine(TimeReturnForcefield());
+        //undestroyable
+    }
+    IEnumerator TimeReturnForcefield()
+    {
+        //reset time.
+        yield return new WaitForSeconds(15);
+        ForceField.SetActive(false);
     }
 }
