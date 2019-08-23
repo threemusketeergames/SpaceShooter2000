@@ -37,7 +37,7 @@ public class PickUpController : MonoBehaviour
             PowerUpColor();
         }else if( number >= 13)
         {
-            //Buckshot power up
+            PowerUpBuckshot();
         }
     }
 
@@ -68,8 +68,13 @@ public class PickUpController : MonoBehaviour
     }
     IEnumerator TimeReturnForcefield()
     {
-        //reset time.
+        //disable forcefield.
         yield return new WaitForSeconds(15);
         ForceField.SetActive(false);
+    }
+    public void PowerUpBuckshot()
+    {
+        //When shooting is completly done...
+        //Add buckshot powerup so you shoot three bullets at one time.
     }
 }
