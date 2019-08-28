@@ -26,7 +26,7 @@ public class PickUpController : MonoBehaviour
         //set force field to false at start
         ForceField.SetActive(false);
     }
-    public void DeterminPowerUp()
+    public void DeterminPowerUp()   
     {
         int number = Random.Range(1,15);
         if(number <= 3)

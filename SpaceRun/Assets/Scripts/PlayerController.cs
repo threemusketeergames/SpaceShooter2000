@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     Vector2 targetDirection;
     float startTime;
     float distanceToTravel = 0f;
+    public float moveSpeed = 3f;
+    public GameObject Ship;
+    public Animation turnleft;
 
     Rigidbody Rigidbody;
     private void Start()
@@ -45,7 +48,22 @@ public class PlayerController : MonoBehaviour
    
     void Update ()
 	{
-		if (Input.GetButton("Fire1") && Time.time > nextFire) 
+        transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * moveSpeed);
+        //Moves Left and right along x Axis                               //Left/Right
+        transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
+        //transform.Rotate(Vector3.up * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
+        //transform.Rotate(Vector3.forward * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
+        //constantly moves fowards untill moved customly.
+        //transform.Translate(Vector3.forward * 0.5f);
+        //ship for now is not the moving object
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            turnleft.Play("TurnLeft");
+        }
+        
+
+
+        if (Input.GetButton("Fire1") && Time.time > nextFire) 
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -132,7 +150,8 @@ public class PlayerController : MonoBehaviour
                 SwitchToSlot(nextSlot);
             }
         }
-
+        
+        //old script 
         //Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
         //GetComponent<Rigidbody>().velocity = movement * speed;
 
