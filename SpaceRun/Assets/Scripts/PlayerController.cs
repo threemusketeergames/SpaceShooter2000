@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
         currentSlot = nextSlot;
         Debug.Log($"Target Pos:  {targetPos} Direction:  {targetDirection}");
     }
+
+ 
 	//void FixedUpdate ()
 	//{
 	//	float moveHorizontal = Input.GetAxis ("Horizontal");
