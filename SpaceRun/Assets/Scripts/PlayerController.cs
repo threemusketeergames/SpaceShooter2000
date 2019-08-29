@@ -56,10 +56,10 @@ public class PlayerController : MonoBehaviour
         //constantly moves fowards untill moved customly.
         //transform.Translate(Vector3.forward * 0.5f);
         //ship for now is not the moving object
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            turnleft.Play("TurnLeft");
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    turnleft.Play("TurnLeft");
+        //}
         
 
 
