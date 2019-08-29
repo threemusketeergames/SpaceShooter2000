@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
     float distanceToTravel = 0f;
     public float moveSpeed = 3f;
     public GameObject Ship;
-    public Animation turnleft;
+
+
 
     Rigidbody Rigidbody;
     private void Start()
@@ -48,20 +49,28 @@ public class PlayerController : MonoBehaviour
    
     void Update ()
 	{
-        transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * moveSpeed);
-        //Moves Left and right along x Axis                               //Left/Right
-        transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
-        //transform.Rotate(Vector3.up * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
-        //transform.Rotate(Vector3.forward * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
-        //constantly moves fowards untill moved customly.
-        //transform.Translate(Vector3.forward * 0.5f);
-        //ship for now is not the moving object
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    turnleft.Play("TurnLeft");
-        //}
-        
 
+
+
+        //Roatation
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            transform.Rotate(0,0,10);
+        
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            transform.Rotate(0, 0,-10);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.Rotate(0, 0, -10);
+
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            transform.Rotate(0, 0, +10);
+        }
 
         if (Input.GetButton("Fire1") && Time.time > nextFire) 
 		{
@@ -119,37 +128,37 @@ public class PlayerController : MonoBehaviour
         currentSlot = nextSlot;
         Debug.Log($"Target Pos:  {targetPos} Direction:  {targetDirection}");
     }
-	void FixedUpdate ()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+	//void FixedUpdate ()
+	//{
+	//	float moveHorizontal = Input.GetAxis ("Horizontal");
+	//	float moveVertical = Input.GetAxis ("Vertical");
 
-        if (!switchingSlots)
-        {
-            Vector2 nextSlot = currentSlot;
-            if (moveHorizontal >= 0.5)
-            {
-                nextSlot += Vector2.right;
-            }else if (moveHorizontal <= -0.5)
-            {
-                nextSlot += Vector2.left;
-            }
-            if (moveVertical >= 0.5)
-            {
-                nextSlot += Vector2.up;
-            }else if(moveVertical <= -0.5)
-            {
-                nextSlot += Vector2.down;
-            }
-            nextSlot.x = Mathf.Clamp(nextSlot.x, 0, RocketSlotGrid.dimensions.x);
-            nextSlot.y = Mathf.Clamp(nextSlot.y, 0, RocketSlotGrid.dimensions.y);
-            if (nextSlot != currentSlot)
-            {
-                Debug.Log("Switching Slots");
-                switchingSlots = true;
-                SwitchToSlot(nextSlot);
-            }
-        }
+ //       if (!switchingSlots)
+ //       {
+ //           Vector2 nextSlot = currentSlot;
+ //           if (moveHorizontal >= 0.5)
+ //           {
+ //               nextSlot += Vector2.right;
+ //           }else if (moveHorizontal <= -0.5)
+ //           {
+ //               nextSlot += Vector2.left;
+ //           }
+ //           if (moveVertical >= 0.5)
+ //           {
+ //               nextSlot += Vector2.up;
+ //           }else if(moveVertical <= -0.5)
+ //           {
+ //               nextSlot += Vector2.down;
+ //           }
+ //           nextSlot.x = Mathf.Clamp(nextSlot.x, 0, RocketSlotGrid.dimensions.x);
+ //           nextSlot.y = Mathf.Clamp(nextSlot.y, 0, RocketSlotGrid.dimensions.y);
+ //           if (nextSlot != currentSlot)
+ //           {
+ //               Debug.Log("Switching Slots");
+ //               switchingSlots = true;
+ //               SwitchToSlot(nextSlot);
+ //           }
+ //       }
         
         //old script 
         //Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
@@ -163,5 +172,5 @@ public class PlayerController : MonoBehaviour
         //);
 
         //GetComponent<Rigidbody>().rotation = Quaternion.Euler (0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
-	}
+	
 }
