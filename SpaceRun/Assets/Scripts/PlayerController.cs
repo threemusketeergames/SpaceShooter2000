@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// In slots/sec
     /// </summary>
-	public float speed;
     public float acceleration;
 	public float tilt;
 	public Boundary boundary;
@@ -50,17 +49,17 @@ public class PlayerController : MonoBehaviour
     void Update ()
 	{
 
+        // Rigidbody.AddTorque(Vector3.left * moveSpeed * Time.deltaTime);
 
-
-        //Roatation
+        //rotating animation
         if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.Rotate(0,0,10);
-        
+            transform.Rotate(0, 0, 10);
+
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            transform.Rotate(0, 0,-10);
+            transform.Rotate(0, 0, -10);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -104,7 +103,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                var accelSpeed = Mathf.Clamp((Time.time - startTime) * acceleration,0,speed);
+                var accelSpeed = Mathf.Clamp((Time.time - startTime) * acceleration,0,moveSpeed);
                 SetRigidBodySpeed(accelSpeed);
             }
         }
