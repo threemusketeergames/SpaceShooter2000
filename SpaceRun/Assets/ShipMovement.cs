@@ -6,15 +6,23 @@ public class ShipMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float rotatespeed;
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.forward * moveSpeed;
+    }
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        //Constant moving foward
-        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
         //Turning left and right
-        transform.Rotate(Vector3.up * Time.deltaTime * Input.GetAxis("Horizontal") * rotatespeed);
-        transform.Rotate(Vector3.left * Time.deltaTime * Input.GetAxis("Vertical") * rotatespeed);
+        rb.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
+        rb.AddTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
+
+        //Constant moving foward
+        rb.velocity = transform.forward * moveSpeed;
     }
 }

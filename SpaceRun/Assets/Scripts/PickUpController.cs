@@ -21,8 +21,7 @@ public class PickUpController : MonoBehaviour
         //Set the render to the color
         rend.material.color = CurrentColor;
         //Set time scale to normal
-        Time.timeScale = 2f;
-        Time.fixedDeltaTime = 2f;
+        Time.timeScale = 1f;
         //set force field to false at start
         ForceField.SetActive(false);
     }
@@ -47,8 +46,7 @@ public class PickUpController : MonoBehaviour
         CurrentColor.g += 1f;
         rend.material.color = CurrentColor;
         //Slow time down
-        Time.timeScale -= 1f;
-        Time.fixedDeltaTime -= 1f;
+        Time.timeScale = 0.5f;
         StartCoroutine(TimeReturnColor());
 
     }
@@ -56,8 +54,7 @@ public class PickUpController : MonoBehaviour
     {
         //reset time.
         yield return new WaitForSeconds(10);
-        Time.fixedDeltaTime = 2f;
-        Time.timeScale = 2f;
+        Time.timeScale = 1f;
     }
 
     public void PowerUpForcefield()
