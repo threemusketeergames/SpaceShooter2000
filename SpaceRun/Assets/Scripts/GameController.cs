@@ -21,7 +21,6 @@ public class GameController : MonoBehaviour
     private bool restart;
     private int score;
 
-    public RocketSlotGrid RocketSlotGrid;
 
     private void Awake()
     {
@@ -34,7 +33,6 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        RocketSlotGrid = GetComponent<RocketSlotGrid>();
     }
     void Start()
     {

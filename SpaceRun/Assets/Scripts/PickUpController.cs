@@ -67,7 +67,7 @@ public class PickUpController : MonoBehaviour
     {
         //disable forcefield.
         yield return new WaitForSeconds(15);
-        ForceField.SetActive(false);
+        ForceField?.SetActive(false);
     }
     public void PowerUpBuckshot()
     {
