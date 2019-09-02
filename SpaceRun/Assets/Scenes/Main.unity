@@ -583,6 +583,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2123367941}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &999344255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999344246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3583a71de61494ea57d7aa16e53f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  tilt: 0
+  shot: {fileID: 100000, guid: f4ec271e525e14ca9927a07e6a2e153d, type: 3}
+  shotSpawn: {fileID: 1888578229}
+  fireRate: 0.25
 --- !u!1 &1018459432
 GameObject:
   m_ObjectHideFlags: 0
@@ -6295,6 +6312,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1888578229 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400004, guid: 738bdf56857a65f479c367c7b62c4ad7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2123367941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1904691130
 GameObject:
   m_ObjectHideFlags: 0
