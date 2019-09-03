@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1461320659}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
 --- !u!1 &699538446
@@ -595,8 +599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3583a71de61494ea57d7aa16e53f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  tilt: 0
   shot: {fileID: 100000, guid: f4ec271e525e14ca9927a07e6a2e153d, type: 3}
   shotSpawn: {fileID: 1888578229}
   fireRate: 0.25
@@ -6149,7 +6151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461320654}
   m_LocalRotation: {x: 0.04361917, y: -0.0032815698, z: 0.0001432765, w: 0.9990428}
-  m_LocalPosition: {x: -0.035947464, y: 1.52, z: -4.270329}
+  m_LocalPosition: {x: -0.04, y: 1.46, z: -3.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 999344254}
@@ -6539,6 +6541,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1461320659}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
 --- !u!1001 &2123367941

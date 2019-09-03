@@ -7,6 +7,7 @@ public class DestroyByContact : MonoBehaviour
 	public GameObject playerExplosion;
 	public int scoreValue;
 	private GameController gameController;
+    public Transform Camera;
 
 	void Start ()
 	{
@@ -38,8 +39,9 @@ public class DestroyByContact : MonoBehaviour
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
 		}
-		
-		gameController.AddScore(scoreValue);
+        //remove parent before destroying ship
+        Camera.parent = null;
+        gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);
 		Destroy (gameObject);
 	}
