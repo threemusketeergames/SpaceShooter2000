@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
 
+    public GameObject Player;
+
     public Text scoreText;
     public Text restartText;
     public Text gameOverText;
@@ -64,7 +66,8 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < hazardCount; i++)
             {
                 GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                //ahead of the player
+                Vector3 spawnPosition = new Vector3(Player.transform.position.x, Player.transform.position.y, (Player.transform.position.z + 15));
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
