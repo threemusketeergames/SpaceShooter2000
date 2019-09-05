@@ -7,11 +7,12 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public GameObject[] hazards;
-    public Vector3 spawnValues;
-    public int hazardCount;
-    public float spawnWait;
     public float startWait;
+    public int hazardCount;
+    public int DistanceFromPlayer;
+    public float spawnWait;
     public float waveWait;
+
 
     public GameObject Player;
 
@@ -67,7 +68,7 @@ public class GameController : MonoBehaviour
             {
                 GameObject hazard = hazards[Random.Range(0, hazards.Length)];
                 //ahead of the player
-                Vector3 spawnPosition = new Vector3(Player.transform.position.x, Player.transform.position.y, (Player.transform.position.z + 15));
+                Vector3 spawnPosition = new Vector3(Player.transform.position.x, Player.transform.position.y, (Player.transform.position.z + DistanceFromPlayer));
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);

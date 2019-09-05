@@ -6273,11 +6273,11 @@ MonoBehaviour:
   - {fileID: 100000, guid: 7d5f7699d6d1d48e485ac71126e12061, type: 3}
   - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
   - {fileID: 100002, guid: 834bfaee90a9d4e04b1e8c1ca22cc88e, type: 3}
-  spawnValues: {x: 6, y: 0, z: 16}
-  hazardCount: 2
+  startWait: 5
+  hazardCount: 6
+  DistanceFromPlayer: 10
   spawnWait: 2
-  startWait: 1
-  waveWait: 3
+  waveWait: 5
   Player: {fileID: 999344246}
   scoreText: {fileID: 330698628}
   restartText: {fileID: 1118447433}
