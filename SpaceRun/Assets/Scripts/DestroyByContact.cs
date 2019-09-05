@@ -24,6 +24,7 @@ public class DestroyByContact : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
+  
 		if (other.tag == "Boundary" || other.tag == "Enemy")
 		{
 			return;
@@ -40,6 +41,7 @@ public class DestroyByContact : MonoBehaviour
 			gameController.GameOver();
 		}
         //remove parent before destroying ship
+        Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Camera.parent = null;
         gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);
