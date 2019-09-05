@@ -6356,7 +6356,7 @@ MonoBehaviour:
   - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
   - {fileID: 100002, guid: 834bfaee90a9d4e04b1e8c1ca22cc88e, type: 3}
   - {fileID: 100002, guid: afc18fc39ade3744397c0c993b57be53, type: 3}
-  spawnValues: {x: 6, y: 0, z: 16}
+  spawnValues: {x: 0, y: 0, z: 0}
   hazardCount: 0
   spawnWait: 0.75
   startWait: 1
