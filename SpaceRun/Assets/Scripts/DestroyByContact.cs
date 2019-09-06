@@ -41,7 +41,7 @@ public class DestroyByContact : MonoBehaviour
 			gameController.GameOver();
 		}
         //remove parent before destroying ship
-        Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        Camera = GameOb     ject.FindGameObjectWithTag("MainCamera").transform;
         Camera.parent = null;
         gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);

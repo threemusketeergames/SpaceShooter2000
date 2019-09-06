@@ -601,6 +601,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shot: {fileID: 100000, guid: f4ec271e525e14ca9927a07e6a2e153d, type: 3}
   shotSpawn: {fileID: 1888578229}
+  buckshot: {fileID: 100000, guid: 11e27c26ac87b40f0a62ec40d7261989, type: 3}
+  buckshoton: 1
   fireRate: 0.25
 --- !u!1 &1018459432
 GameObject:
@@ -697,7 +699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1019284187
 Transform:
   m_ObjectHideFlags: 0
@@ -969,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1415125071
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -6356,11 +6358,12 @@ MonoBehaviour:
   - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
   - {fileID: 100002, guid: 834bfaee90a9d4e04b1e8c1ca22cc88e, type: 3}
   - {fileID: 100002, guid: afc18fc39ade3744397c0c993b57be53, type: 3}
-  spawnValues: {x: 0, y: 0, z: 0}
-  hazardCount: 0
-  spawnWait: 0.75
   startWait: 1
+  hazardCount: 0
+  DistanceFromPlayer: 0
+  spawnWait: 0.75
   waveWait: 4
+  Player: {fileID: 0}
   scoreText: {fileID: 330698628}
   restartText: {fileID: 1118447433}
   gameOverText: {fileID: 1018459434}

@@ -15,19 +15,36 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shot;
     public Transform shotSpawn;
+    public GameObject buckshot;
+    public bool buckshoton;
     public float fireRate;
 
     private float nextFire;
 
     void Update()
     {
+
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
-            nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            GetComponent<AudioSource>().Play();
+            if (buckshoton)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(buckshot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                GetComponent<AudioSource>().Play();
+            }
+            else
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                GetComponent<AudioSource>().Play();
+            }
+          
         }
     }
+
+
 
     void FixedUpdate()
     {

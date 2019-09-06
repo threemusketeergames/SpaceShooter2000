@@ -71,7 +71,6 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-        //When shooting is completly done...
-        //Add buckshot powerup so you shoot three bullets at one time.
+        
     }
 }
