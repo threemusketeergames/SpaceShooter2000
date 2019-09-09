@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviour
     //public float tilt;
     //public Boundary boundary;
 
-    public GameObject shot;
+    public GameObject bullet;
     public Transform shotSpawn;
-    public GameObject buckshot;
+    public Transform shotSpawnBuckshot1;
+    public Transform shotSpawnBuckshot2;
+    public GameObject Buckshotbullet;
     public bool buckshoton;
     public float fireRate;
 
@@ -29,19 +31,30 @@ public class PlayerController : MonoBehaviour
             if (buckshoton)
             {
                 nextFire = Time.time + fireRate;
-                Instantiate(buckshot, shotSpawn.position, shotSpawn.rotation);
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(Buckshotbullet, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(Buckshotbullet, shotSpawnBuckshot1.position, shotSpawn.rotation);
+                Instantiate(Buckshotbullet, shotSpawnBuckshot2.position, shotSpawn.rotation);
                 GetComponent<AudioSource>().Play();
             }
             else
             {
                 nextFire = Time.time + fireRate;
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(bullet, shotSpawn.position, shotSpawn.rotation);
                 GetComponent<AudioSource>().Play();
             }
           
         }
+    }
+    public void StartBuckshot()
+    {
+        StartCoroutine(Wait(buckshoton));
+    }
+
+    IEnumerator Wait(bool x)
+    {
+        x = true;
+        yield return new WaitForSeconds(10);
+        x = false;
     }
 
 

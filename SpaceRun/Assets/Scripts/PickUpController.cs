@@ -71,6 +71,6 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-        
+        Ship.GetComponent<PlayerController>.StartBuckshot();
     }
 }
