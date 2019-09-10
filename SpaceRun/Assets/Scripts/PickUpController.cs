@@ -28,13 +28,13 @@ public class PickUpController : MonoBehaviour
     public void DeterminPowerUp()   
     {
         int number = Random.Range(1,15);
-        if(number <= 3)
-        {
-            PowerUpForcefield();
-        }else if( number > 3 & number <= 12)
+        if(number <= 5)
         {
             PowerUpColor();
-        }else if( number >= 13)
+        }else if( number > 5 & number <= 10)
+        {
+            PowerUpForcefield();
+        }else if( number >= 11)
         {
             PowerUpBuckshot();
         }
@@ -71,6 +71,6 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-        Ship.GetComponent<PlayerController>.StartBuckshot();
+      this.GetComponent<PlayerController>().StartBuckshot();
     }
 }

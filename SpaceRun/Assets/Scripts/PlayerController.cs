@@ -47,14 +47,14 @@ public class PlayerController : MonoBehaviour
     }
     public void StartBuckshot()
     {
-        StartCoroutine(Wait(buckshoton));
+        StartCoroutine(Wait());
     }
 
-    IEnumerator Wait(bool x)
+    IEnumerator Wait()
     {
-        x = true;
+        buckshoton = true;
         yield return new WaitForSeconds(10);
-        x = false;
+        buckshoton = false;
     }
 
 
