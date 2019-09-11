@@ -12,13 +12,17 @@ public class GameController : MonoBehaviour
     public int DistanceFromPlayer;
     public float spawnWait;
     public float waveWait;
-
+    public float timeAliveDecimal;
+    public int timeAlive;
+    static int highscore = 0;
+    public Text highScore;
 
     public GameObject Player;
 
     public Text scoreText;
     public Text restartText;
     public Text gameOverText;
+    public Text timerAliveText;
 
     private bool gameOver;
     private bool restart;
@@ -27,6 +31,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        highScore.text = "High Score: " + highscore.ToString();
+
+
         if (Instance == null)
         {
             Instance = this;
@@ -39,6 +46,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+
         gameOver = false;
         restart = false;
         restartText.text = "";
@@ -50,6 +58,13 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if(Player != null)
+        {
+            timeAliveDecimal += Time.deltaTime;
+            timeAlive = Mathf.RoundToInt(timeAliveDecimal);
+            timerAliveText.text = "Time Alive: " + timeAlive;
+        }
+
         if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -58,7 +73,14 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
+    public void PlayerHighScored()
+    {
+        if (score > highscore)
+        {
+            highscore = score;
+            highScore.text = "High Score: " + highscore.ToString();
+        }
+    }
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
@@ -99,5 +121,6 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "Game Over!";
         gameOver = true;
+        PlayerHighScored();
     }
 }

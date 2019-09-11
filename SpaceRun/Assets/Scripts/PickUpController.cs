@@ -8,9 +8,8 @@ public class PickUpController : MonoBehaviour
     public GameObject ForceField;
     public Color CurrentColor = Color.black;
     public Renderer rend;
-    
-
-
+    public GameObject CircularProgressBar;
+    //public Transform CircularProgressBarSpawn;
 
     void Start()
     {
@@ -27,6 +26,10 @@ public class PickUpController : MonoBehaviour
     }
     public void DeterminPowerUp()   
     {
+        //var go = Instantiate(CircularProgressBar) as GameObject;
+        //go.transform.parent = CircularProgressBarSpawn;
+        CircularProgressBar.active = true;
+        CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
         int number = Random.Range(1,15);
         if(number <= 3)
         {
