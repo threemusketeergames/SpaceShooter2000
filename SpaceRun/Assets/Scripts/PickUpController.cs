@@ -31,13 +31,13 @@ public class PickUpController : MonoBehaviour
         CircularProgressBar.active = true;
         CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
         int number = Random.Range(1,15);
-        if(number <= 3)
-        {
-            PowerUpForcefield();
-        }else if( number > 3 & number <= 12)
+        if(number <= 5)
         {
             PowerUpColor();
-        }else if( number >= 13)
+        }else if( number > 5 & number <= 10)
+        {
+            PowerUpForcefield();
+        }else if( number >= 11)
         {
             PowerUpBuckshot();
         }
@@ -70,11 +70,10 @@ public class PickUpController : MonoBehaviour
     {
         //disable forcefield.
         yield return new WaitForSeconds(15);
-        ForceField?.SetActive(false);
+        ForceField.SetActive(false);
     }
     public void PowerUpBuckshot()
     {
-        //When shooting is completly done...
-        //Add buckshot powerup so you shoot three bullets at one time.
+      this.GetComponent<PlayerController>().StartBuckshot();
     }
 }

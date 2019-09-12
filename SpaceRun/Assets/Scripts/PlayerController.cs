@@ -13,21 +13,51 @@ public class PlayerController : MonoBehaviour
     //public float tilt;
     //public Boundary boundary;
 
-    public GameObject shot;
+    public GameObject bullet;
     public Transform shotSpawn;
+    public Transform shotSpawnBuckshot1;
+    public Transform shotSpawnBuckshot2;
+    public GameObject Buckshotbullet;
+    public bool buckshoton;
     public float fireRate;
 
     private float nextFire;
 
     void Update()
     {
+
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
-            nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            GetComponent<AudioSource>().Play();
+            if (buckshoton)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(Buckshotbullet, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(Buckshotbullet, shotSpawnBuckshot1.position, shotSpawn.rotation);
+                Instantiate(Buckshotbullet, shotSpawnBuckshot2.position, shotSpawn.rotation);
+                GetComponent<AudioSource>().Play();
+            }
+            else
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(bullet, shotSpawn.position, shotSpawn.rotation);
+                GetComponent<AudioSource>().Play();
+            }
+          
         }
     }
+    public void StartBuckshot()
+    {
+        StartCoroutine(Wait());
+    }
+
+    IEnumerator Wait()
+    {
+        buckshoton = true;
+        yield return new WaitForSeconds(10);
+        buckshoton = false;
+    }
+
+
 
     void FixedUpdate()
     {
