@@ -8,6 +8,7 @@ public class PickUpController : MonoBehaviour
     public GameObject ForceField;
     public Color CurrentColor = Color.black;
     public Renderer rend;
+    public bool Ready;
     public GameObject CircularProgressBar;
     //public Transform CircularProgressBarSpawn;
 
@@ -23,24 +24,33 @@ public class PickUpController : MonoBehaviour
         Time.timeScale = 1f;
         //set force field to false at start
         ForceField.SetActive(false);
+        //ready to start
+        Ready = true;
     }
     public void DeterminPowerUp()   
     {
         //var go = Instantiate(CircularProgressBar) as GameObject;
         //go.transform.parent = CircularProgressBarSpawn;
-        CircularProgressBar.active = true;
-        CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
-        int number = Random.Range(1,15);
-        if(number <= 3)
+        if (Ready)
         {
-            PowerUpForcefield();
-        }else if( number > 3 & number <= 12)
-        {
-            PowerUpColor();
-        }else if( number >= 13)
-        {
-            PowerUpBuckshot();
+            Ready = false;
+            CircularProgressBar.active = true;
+            CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
+            int number = Random.Range(1, 15);
+            if (number <= 3)
+            {
+                PowerUpForcefield();
+            }
+            else if (number > 3 & number <= 12)
+            {
+                PowerUpColor();
+            }
+            else if (number >= 13)
+            {
+                PowerUpBuckshot();
+            }
         }
+        
     }
 
     public void PowerUpColor()
@@ -58,6 +68,7 @@ public class PickUpController : MonoBehaviour
         //reset time.
         yield return new WaitForSeconds(10);
         Time.timeScale = 1f;
+        Ready = true;
     }
 
     public void PowerUpForcefield()
@@ -70,11 +81,11 @@ public class PickUpController : MonoBehaviour
     {
         //disable forcefield.
         yield return new WaitForSeconds(15);
-        ForceField?.SetActive(false);
+        ForceField.SetActive(false);
+        Ready = true;
     }
     public void PowerUpBuckshot()
     {
-        //When shooting is completly done...
-        //Add buckshot powerup so you shoot three bullets at one time.
+       //buckshot power up
     }
 }
