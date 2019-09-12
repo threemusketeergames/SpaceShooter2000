@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
         buckshoton = true;
         yield return new WaitForSeconds(10);
         buckshoton = false;
+        this.GetComponent<PickUpController>().Ready = true;
+
+
     }
 
 
