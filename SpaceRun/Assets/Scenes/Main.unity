@@ -6728,6 +6728,8 @@ GameObject:
   - component: {fileID: 1904691132}
   - component: {fileID: 1904691131}
   - component: {fileID: 1904691133}
+  - component: {fileID: 1904691136}
+  - component: {fileID: 1904691135}
   - component: {fileID: 1904691134}
   m_Layer: 0
   m_Name: Game Controller
@@ -6766,6 +6768,7 @@ MonoBehaviour:
   restartText: {fileID: 1118447433}
   gameOverText: {fileID: 1018459434}
   timerAliveText: {fileID: 14979410}
+  pathManager: {fileID: 0}
 --- !u!4 &1904691132
 Transform:
   m_ObjectHideFlags: 0
@@ -6885,9 +6888,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 1904691130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f702c4ada2da388499a0d3e57145137b, type: 3}
+  m_Script: {fileID: 11500000, guid: ba2de641741f7424597af9425ff26a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestWaypoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 10}
+  - {x: 0, y: 6.87, z: 25}
+  innerRadius: 6
+  outerRadius: 10
+  density: 0.15
+  enableTubeGizmo: 1
+  enableAsteroidSpawns: 1
+  numCornerBands: 10
+  numTubeLines: 8
+--- !u!114 &1904691135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e918a83504efd0b498ed5dcecde8ea85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windiness: 1.5
+  gradualness: 1000
+--- !u!114 &1904691136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumWaypoints: 30
+  StepDist: 5
+  pathFeatures:
+  - {fileID: 1904691135}
+  gizmosColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &2116338278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7004,6 +7049,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_AngularDrag
+      value: 20.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: ForceField
+      value: 
+      objectReference: {fileID: 7832761672317431590, guid: ba7da7d78996b9041b90fa5c6e6bda91,
+        type: 3}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: CircularProgressBar
+      value: 
+      objectReference: {fileID: 1349121644}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: Canvas
+      value: 
+      objectReference: {fileID: 699538450}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: CircularProgressBarSpawn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: Ship
+      value: 
+      objectReference: {fileID: 1904691131}
+    - target: {fileID: 400002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
@@ -7048,51 +7138,6 @@ PrefabInstance:
       propertyPath: InitialModule.startRotation.scalar
       value: 0.16179202
       objectReference: {fileID: 0}
-    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_AngularDrag
-      value: 20.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: ForceField
-      value: 
-      objectReference: {fileID: 7832761672317431590, guid: ba7da7d78996b9041b90fa5c6e6bda91,
-        type: 3}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: CircularProgressBar
-      value: 
-      objectReference: {fileID: 1349121644}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: Canvas
-      value: 
-      objectReference: {fileID: 699538450}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: CircularProgressBarSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: Ship
-      value: 
-      objectReference: {fileID: 1904691131}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
 --- !u!1001 &5493491234439962316
