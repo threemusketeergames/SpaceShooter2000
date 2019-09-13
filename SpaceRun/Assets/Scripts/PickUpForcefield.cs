@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickUpForcefield : MonoBehaviour
 {
     public GameObject Ship;
-
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -13,7 +13,7 @@ public class PickUpForcefield : MonoBehaviour
         {
             Ship.GetComponent<PickUpController>().PowerUpForcefield();
             Destroy(gameObject);
-
+            
 
         }
     }

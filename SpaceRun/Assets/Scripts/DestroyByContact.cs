@@ -7,6 +7,7 @@ public class DestroyByContact : MonoBehaviour
 	public GameObject playerExplosion;
 	public int scoreValue;
 	private GameController gameController;
+    public Transform Camera;
 
 	void Start ()
 	{
@@ -23,7 +24,8 @@ public class DestroyByContact : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Boundary" || other.tag == "Enemy")
+  
+		if (other.tag == "Boundary" || other.tag == "Enemy" || other.tag == "ForceField")
 		{
 			return;
 		}
@@ -35,11 +37,15 @@ public class DestroyByContact : MonoBehaviour
 
 		if (other.tag == "Player")
 		{
-			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+            //remove parent before destroying ship
+            Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            Camera.parent = null;
+            Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
 		}
-		
-		gameController.AddScore(scoreValue);
+
+     
+        gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);
 		Destroy (gameObject);
 	}

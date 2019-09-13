@@ -4907,7 +4907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd58181c835dd7540828a8e36b776891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -3
+  speed: 3
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4920,11 +4920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83f547a0b5e164458fdd28addd02ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundary:
-    xMin: -6
-    xMax: 6
-    zMin: -20
-    zMax: 20
   tilt: 10
   dodge: 5
   smoothing: 7.5

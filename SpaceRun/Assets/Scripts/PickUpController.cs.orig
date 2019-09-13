@@ -31,6 +31,20 @@ public class PickUpController : MonoBehaviour
     {
         //var go = Instantiate(CircularProgressBar) as GameObject;
         //go.transform.parent = CircularProgressBarSpawn;
+<<<<<<< HEAD
+        CircularProgressBar.active = true;
+        CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
+        int number = Random.Range(1,15);
+        if(number <= 5)
+        {
+            PowerUpColor();
+        }else if( number > 5 & number <= 10)
+        {
+            PowerUpForcefield();
+        }else if( number >= 11)
+        {
+            PowerUpBuckshot();
+=======
         if (Ready)
         {
             Ready = false;
@@ -49,6 +63,7 @@ public class PickUpController : MonoBehaviour
             {
                 PowerUpBuckshot();
             }
+>>>>>>> PowerUpObjectWork
         }
         
     }
@@ -82,10 +97,17 @@ public class PickUpController : MonoBehaviour
         //disable forcefield.
         yield return new WaitForSeconds(15);
         ForceField.SetActive(false);
-        Ready = true;
+<<<<<<< HEAD
     }
     public void PowerUpBuckshot()
     {
       this.GetComponent<PlayerController>().StartBuckshot();
+=======
+        Ready = true;
+    }
+    public void PowerUpBuckshot()
+    {
+       //buckshot power up
+>>>>>>> PowerUpObjectWork
     }
 }

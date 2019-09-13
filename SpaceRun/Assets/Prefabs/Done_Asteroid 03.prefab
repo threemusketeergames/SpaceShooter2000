@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 5400000}
   - component: {fileID: 11400000}
   - component: {fileID: 11400006}
-  - component: {fileID: -2194841060333990737}
   m_Layer: 0
   m_Name: Done_Asteroid 03
   m_TagString: Enemy
@@ -156,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e5331189e47204a817fe524b62cc6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 100004, guid: a6d58f54ce5934781962a4f887e834f3, type: 3}
-  playerExplosion: {fileID: 100008, guid: 3455fe69f7ddc4604b95bf9b0a1e88d7, type: 3}
+  explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 3}
+  playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   scoreValue: 10
 --- !u!114 &11400006
 MonoBehaviour:
@@ -171,17 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333c355986055ff4d832669e768bb521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tumble: 5
---- !u!114 &-2194841060333990737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd58181c835dd7540828a8e36b776891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: -3
+  tumble: 3
