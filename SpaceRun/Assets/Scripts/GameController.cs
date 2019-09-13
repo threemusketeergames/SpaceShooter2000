@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     private bool restart;
     private int score;
 
-
+    public PathManager pathManager;
     private void Awake()
     {
         if (Instance == null)
@@ -43,6 +43,8 @@ public class GameController : MonoBehaviour
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
+
+        pathManager = GetComponent<PathManager>();
     }
 
     void Update()

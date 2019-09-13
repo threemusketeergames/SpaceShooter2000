@@ -6314,8 +6314,6 @@ GameObject:
   - component: {fileID: 1904691131}
   - component: {fileID: 1904691133}
   - component: {fileID: 1904691134}
-  - component: {fileID: 1904691136}
-  - component: {fileID: 1904691135}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameController
@@ -6348,7 +6346,6 @@ MonoBehaviour:
   scoreText: {fileID: 330698628}
   restartText: {fileID: 1118447433}
   gameOverText: {fileID: 1018459434}
-  pathManager: {fileID: 0}
 --- !u!4 &1904691132
 Transform:
   m_ObjectHideFlags: 0
@@ -6471,48 +6468,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2de641741f7424597af9425ff26a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
+  dimensions: {x: 3, y: 3}
+  slotSize: 3
+  middle: {x: 1.5, y: 1.5}
+=======
   TestWaypoints:
-  - {x: 0, y: 0, z: -0.59}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 5}
-  - {x: 0, y: 11.06, z: 20.3}
-  innerRadius: 4
-  outerRadius: 5
-  density: 1
+  innerRadius: 0
+  outerRadius: 0
+  density: 0
   enableTubeGizmo: 1
-  enableAsteroidSpawns: 0
-  numCornerBands: 10
-  numTubeLines: 8
---- !u!114 &1904691135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904691130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e918a83504efd0b498ed5dcecde8ea85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  windiness: 1.5
-  gradualness: 1000
---- !u!114 &1904691136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904691130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NumWaypoints: 100
-  StepDist: 5
-  pathFeatures:
-  - {fileID: 1904691135}
-  gizmosColor: {r: 0, g: 0, b: 0, a: 0}
+  enableAsteroidSpawns: 1
+  numCornerBands: 4
+>>>>>>> Stashed changes
 --- !u!1001 &2116338278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6625,14 +6595,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_AngularDrag
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -6643,6 +6605,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_AngularDrag
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}

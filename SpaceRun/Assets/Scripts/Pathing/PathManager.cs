@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    Queue<Vector3> Waypoints;
+    public Queue<Vector3> Waypoints;
     public int NumWaypoints;
     public float StepDist;
     IEnumerator<Vector3> CurrentFeatureGenerator;
