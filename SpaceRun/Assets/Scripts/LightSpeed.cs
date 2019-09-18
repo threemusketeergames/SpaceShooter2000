@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,24 +10,45 @@ public class LightSpeed : MonoBehaviour
 
     public void Start()
     {
-        Stars.lengthScale = 3f;
+        Stars.lengthScale = 3;
         Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
-        CommenceLightSpeed();
+        StartCoroutine(WaitFor());
 
     }
 
-    public void CommenceLightSpeed()
+    public void Update()
     {
-        while(Stars.lengthScale < 190f)
+        //Stars.lengthScale += 5;
+    }
+
+    IEnumerator WaitFor()
+    {
+        //while (Stars.lengthScale < 190)
+        //{
+        //    Stars.lengthScale -= 50;
+        //    yield return new WaitForSeconds(2);
+
+        //}
+        //while (Stars.lengthScale > 50)
+        //{
+        //    Stars.lengthScale -= 50;
+        //    yield return new WaitForSeconds(2);
+
+        //}
+        //Stars.lengthScale = 3;
+        //Ship.GetComponent<ShipMovement>().moveSpeed = 4f;
+        float elapsed = 0;
+        float duration = 20;
+
+        while (elapsed < duration)
         {
-            Stars.lengthScale += 30f * Time.deltaTime;
+            Stars.lengthScale = Mathf.Lerp(0, 200, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-        while(Stars.lengthScale > 50f)
-        {
-            Stars.lengthScale -= 50f * Time.deltaTime;
-        }
-        Stars.lengthScale = 3f;
-        Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
+        
+    
+        
 
     }
 }
