@@ -12,7 +12,7 @@ public class LightSpeed : MonoBehaviour
     {
         Stars.lengthScale = 3;
         Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
-        StartCoroutine(WaitFor());
+        StartCoroutine(LightSpeedSimilate());
 
     }
 
@@ -21,34 +21,27 @@ public class LightSpeed : MonoBehaviour
         //Stars.lengthScale += 5;
     }
 
-    IEnumerator WaitFor()
+    IEnumerator LightSpeedSimilate()
     {
-        //while (Stars.lengthScale < 190)
-        //{
-        //    Stars.lengthScale -= 50;
-        //    yield return new WaitForSeconds(2);
-
-        //}
-        //while (Stars.lengthScale > 50)
-        //{
-        //    Stars.lengthScale -= 50;
-        //    yield return new WaitForSeconds(2);
-
-        //}
-        //Stars.lengthScale = 3;
-        //Ship.GetComponent<ShipMovement>().moveSpeed = 4f;
         float elapsed = 0;
-        float duration = 20;
-
+        float duration = 4;
         while (elapsed < duration)
         {
-            Stars.lengthScale = Mathf.Lerp(0, 200, elapsed / duration);
+            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -140, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        
-    
-        
+        yield return new WaitForSeconds(1);
+        float stopelapsed= 0;
+        float stopduration = 3;
+        while (stopelapsed < stopduration)
+        {
+            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -3, stopelapsed / stopduration);
+            stopelapsed += Time.deltaTime;
+            yield return null;
+        }
+        Stars.lengthScale = -3f;
+        Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
 
     }
 }
