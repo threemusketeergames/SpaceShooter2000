@@ -10,9 +10,15 @@ public class LightSpeed : MonoBehaviour
     public GameObject Ship;
     public Text StartText;
 
+    //things to hide during light speed so that it looks real.
+    //Put the parent object here to hide envoirement that is seen during light speed.
+    public GameObject GroupToHide;
+
+
     public void Start()
     {
         StartText.text = "";
+        GroupToHide.SetActive(false);
         Stars.lengthScale = 3;
         Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
         StartCoroutine(LightSpeedSimilate());
@@ -25,7 +31,7 @@ public class LightSpeed : MonoBehaviour
         float duration = 4;
         while (elapsed < duration)
         {
-            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -140, elapsed / duration);
+            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -500, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -39,6 +45,7 @@ public class LightSpeed : MonoBehaviour
             yield return null;
         }
         Stars.lengthScale = -3f;
+        GroupToHide.SetActive(true);
         StartText.text = "Start";
         Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
         yield return new WaitForSeconds(1);
