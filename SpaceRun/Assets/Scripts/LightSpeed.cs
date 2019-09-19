@@ -2,23 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LightSpeed : MonoBehaviour
 {
     public ParticleSystemRenderer Stars;
     public GameObject Ship;
+    public Text StartText;
 
     public void Start()
     {
+        StartText.text = "";
         Stars.lengthScale = 3;
         Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
         StartCoroutine(LightSpeedSimilate());
 
-    }
-
-    public void Update()
-    {
-        //Stars.lengthScale += 5;
     }
 
     IEnumerator LightSpeedSimilate()
@@ -41,7 +39,11 @@ public class LightSpeed : MonoBehaviour
             yield return null;
         }
         Stars.lengthScale = -3f;
+        StartText.text = "Start";
         Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
+        yield return new WaitForSeconds(1);
+        StartText.text = "";
+
 
     }
 }
