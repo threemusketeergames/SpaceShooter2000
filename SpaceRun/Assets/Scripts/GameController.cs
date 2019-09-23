@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
     private bool restart;
     private int score;
 
+    public int Health;
+
 
     public PathManager pathManager;
     private void Awake()
@@ -48,6 +50,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        Health = 20;
         Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
@@ -126,5 +129,17 @@ public class GameController : MonoBehaviour
         gameOverText.text = "Game Over!";
         gameOver = true;
         PlayerHighScored();
+    }
+    public bool TakeHealth()
+    {
+        Health -= 10;
+        if(Health <= 0)
+        {
+            GameOver();
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 }

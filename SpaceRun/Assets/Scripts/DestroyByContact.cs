@@ -37,16 +37,24 @@ public class DestroyByContact : MonoBehaviour
 
 		if (other.tag == "Player")
 		{
-            //remove parent before destroying ship
-            Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-            Camera.parent = null;
-            Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-			gameController.GameOver();
+            //demote the health in gamecontroller
+            if (gameController.TakeHealth())
+            {
+                //remove parent before destroying ship
+                Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+                Camera.parent = null;
+                Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+                gameController.AddScore(scoreValue);
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instantiate(explosion, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
+           
 		}
 
-     
-        gameController.AddScore(scoreValue);
-		Destroy (other.gameObject);
-		Destroy (gameObject);
 	}
 }
