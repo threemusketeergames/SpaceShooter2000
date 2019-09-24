@@ -29,7 +29,9 @@ public class GameController : MonoBehaviour
     private bool restart;
     private int score;
 
+    public int StartHeath;
     public int Health;
+    public GameObject HealthBarObject;
 
 
     public PathManager pathManager;
@@ -50,7 +52,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        Health = 20;
+        Health = StartHeath;
         Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
@@ -132,8 +134,9 @@ public class GameController : MonoBehaviour
     }
     public bool TakeHealth()
     {
-        Health -= 10;
-        if(Health <= 0)
+        Health -= 50;
+        HealthBarObject.GetComponent<HealthBarScript>().UpdateHealth(Health, StartHeath);
+        if (Health <= 0)
         {
             GameOver();
             return true;
