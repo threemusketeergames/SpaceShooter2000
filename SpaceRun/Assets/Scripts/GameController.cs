@@ -31,7 +31,9 @@ public class GameController : MonoBehaviour
 
     public int StartHeath;
     public int Health;
-    public GameObject HealthBarObject;
+    public Text LivesDisplay;
+    public bool Canshoot;
+    public GameObject EngineParticle;
 
 
     public PathManager pathManager;
@@ -52,7 +54,9 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        Canshoot = true;
         Health = StartHeath;
+        LivesDisplay.text = "Lives:" + "X X";
         Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
@@ -135,13 +139,20 @@ public class GameController : MonoBehaviour
     public bool TakeHealth()
     {
         Health -= 50;
-        HealthBarObject.GetComponent<HealthBarScript>().UpdateHealth(Health, StartHeath);
         if (Health <= 0)
         {
+            //lost our second life
+            Canshoot = true;
+            EngineParticle.SetActive(true);
+            LivesDisplay.text = "Lives:" + "";
             GameOver();
             return true;
         }else
         {
+            //lost first life
+            Canshoot = false;
+            EngineParticle.SetActive(false);
+            LivesDisplay.text = "Lives:" + "X";
             return false;
         }
     }
