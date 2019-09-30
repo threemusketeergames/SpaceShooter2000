@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public Text highScore;
 
     public GameObject Player;
+    public Transform StartPosition;
 
     public Text scoreText;
     public Text restartText;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
     private bool gameOver;
     private bool restart;
     private int score;
+
 
     public PathManager pathManager;
     private void Awake()
@@ -46,7 +48,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-
+        Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
         restartText.text = "";
