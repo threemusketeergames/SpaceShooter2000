@@ -33,7 +33,12 @@ public class DestroyByContact : MonoBehaviour
 		if (explosion != null)
 		{
 			Instantiate(explosion, transform.position, transform.rotation);
-		}
+
+        }
+        if(other.tag == "Bullet")
+        {
+            Destroy(gameObject);
+        }
 
 		if (other.tag == "Player")
 		{
