@@ -29,6 +29,12 @@ public class GameController : MonoBehaviour
     private bool restart;
     private int score;
 
+    public int StartHeath;
+    public int Health;
+    public Text LivesDisplay;
+    public bool Canshoot;
+    public GameObject EngineParticle;
+
 
     public PathManager pathManager;
     private void Awake()
@@ -48,6 +54,9 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        Canshoot = true;
+        Health = StartHeath;
+        LivesDisplay.text = "Lives:" + "X X";
         Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
@@ -126,5 +135,25 @@ public class GameController : MonoBehaviour
         gameOverText.text = "Game Over!";
         gameOver = true;
         PlayerHighScored();
+    }
+    public bool TakeHealth()
+    {
+        Health -= 50;
+        if (Health <= 0)
+        {
+            //lost our second life
+            Canshoot = true;
+            EngineParticle.SetActive(true);
+            LivesDisplay.text = "Lives:" + "";
+            GameOver();
+            return true;
+        }else
+        {
+            //lost first life
+            Canshoot = false;
+            EngineParticle.SetActive(false);
+            LivesDisplay.text = "Lives:" + "X";
+            return false;
+        }
     }
 }
