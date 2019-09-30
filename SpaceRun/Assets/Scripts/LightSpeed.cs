@@ -9,6 +9,7 @@ public class LightSpeed : MonoBehaviour
     public ParticleSystemRenderer Stars;
     public GameObject Ship;
     public Text StartText;
+    public bool LighSpeedActive;
 
     //things to hide during light speed so that it looks real.
     //Put the parent object here to hide envoirement that is seen during light speed.
@@ -18,6 +19,7 @@ public class LightSpeed : MonoBehaviour
     public void Start()
     {
         StartText.text = "";
+        LighSpeedActive = true;
         GroupToHide.SetActive(false);
         Stars.lengthScale = 3;
         Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
@@ -45,6 +47,7 @@ public class LightSpeed : MonoBehaviour
             yield return null;
         }
         Stars.lengthScale = -3f;
+        LighSpeedActive = false;
         GroupToHide.SetActive(true);
         StartText.text = "Start";
         Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
