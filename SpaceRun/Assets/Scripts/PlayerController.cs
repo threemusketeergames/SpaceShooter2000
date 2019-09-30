@@ -18,10 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private float nextFire;
     public GameObject gamecontrollerscript;
-    
-
-
-
+   
 
     void Update()
     {
