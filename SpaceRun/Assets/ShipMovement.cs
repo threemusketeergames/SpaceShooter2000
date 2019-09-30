@@ -19,8 +19,8 @@ public class ShipMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Turning left and right
-        rb.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
-        rb.AddTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
+        rb.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
+        rb.AddRelativeTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
 
         //Constant moving foward
         rb.velocity = transform.forward * moveSpeed;
