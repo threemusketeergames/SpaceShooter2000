@@ -11,18 +11,22 @@ public class ShipMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.forward * moveSpeed;
+       //rb.velocity = Vector3.forward * moveSpeed;
     }
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Turning left and right
-        rb.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
-        rb.AddRelativeTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
+        if (!this.GetComponent<PlayerController>().gamecontrollerscript.GetComponent<LightSpeed>().LighSpeedActive)
+        {
+            //Turning left and right
+            rb.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
+            rb.AddRelativeTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
 
-        //Constant moving foward
-        rb.velocity = transform.forward * moveSpeed;
+            //Constant moving foward
+            rb.velocity = transform.forward * moveSpeed;
+        }
+       
     }
 }
