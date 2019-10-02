@@ -153,7 +153,17 @@ public class GameController : MonoBehaviour
             Canshoot = false;
             EngineParticle.SetActive(false);
             LivesDisplay.text = "Lives:" + "X";
+            Player.GetComponent<PickUpController>().OneLife = true;
             return false;
         }
+    }
+    public void AddHealth()
+    {
+        Health += 50;
+        LivesDisplay.text = "Lives:" + "XX";
+        Canshoot = true;
+        EngineParticle.SetActive(true);
+        Player.GetComponent<PickUpController>().OneLife = false;
+
     }
 }

@@ -10,6 +10,8 @@ public class PickUpController : MonoBehaviour
     public Renderer rend;
     public bool Ready;
     public GameObject CircularProgressBar;
+    public bool OneLife;
+
     //public Transform CircularProgressBarSpawn;
 
     void Start()
@@ -24,8 +26,9 @@ public class PickUpController : MonoBehaviour
         Time.timeScale = 1f;
         //set force field to false at start
         ForceField.SetActive(false);
-        //ready to start
+        //ready to start a NEW power up
         Ready = true;
+
     }
     public void DeterminPowerUp()   
     {
@@ -37,18 +40,35 @@ public class PickUpController : MonoBehaviour
             CircularProgressBar.active = true;
             CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
             int number = Random.Range(1, 15);
-            if (number <= 3)
+
+            if (!OneLife)
             {
-                PowerUpForcefield();
+                if (number <= 3)
+                {
+                    PowerUpForcefield();
+                }
+                else if (number > 3 & number <= 12)
+                {
+                    PowerUpColor();
+                }
+                else if (number >= 13)
+                {
+                    PowerUpBuckshot();
+                }
             }
-            else if (number > 3 & number <= 12)
+            else
             {
-                PowerUpColor();
+                if (number <= 7)
+                {
+                    PowerUpColor();
+                }
+                else if (number >= 8)
+                {
+                    PowerUpGainLife();
+                }
             }
-            else if (number >= 13)
-            {
-                PowerUpBuckshot();
-            }
+            
+            
         }
         
     }
@@ -56,7 +76,7 @@ public class PickUpController : MonoBehaviour
     public void PowerUpColor()
     {
         //Add to the color then set again
-        CurrentColor.g += 1f;
+        CurrentColor.g += 2.0f;
         rend.material.color = CurrentColor;
         //Slow time down
         Time.timeScale = 0.5f;
@@ -88,4 +108,14 @@ public class PickUpController : MonoBehaviour
     {
       this.GetComponent<PlayerController>().StartBuckshot();
     }
+    public void PowerUpGainLife()
+    {
+        //gain life
+        this.GetComponent<PlayerController>().gamecontrollerscript.GetComponent<GameController>().AddHealth();
+        Ready = true;
+
+
+    }
+
+
 }
