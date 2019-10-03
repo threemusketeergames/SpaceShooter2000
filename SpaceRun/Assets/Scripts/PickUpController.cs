@@ -11,6 +11,7 @@ public class PickUpController : MonoBehaviour
     public bool Ready;
     public GameObject CircularProgressBar;
     public bool OneLife;
+    public int PowerupLastTime;
 
     //public Transform CircularProgressBarSpawn;
 
@@ -30,48 +31,50 @@ public class PickUpController : MonoBehaviour
         Ready = true;
 
     }
-    public void DeterminPowerUp()   
+    public void DeterminPowerUp()
     {
         //var go = Instantiate(CircularProgressBar) as GameObject;
         //go.transform.parent = CircularProgressBarSpawn;
-        if (Ready)
+        int number = Random.Range(1, 15);
+
+        if (Ready && !OneLife)
         {
             Ready = false;
-            CircularProgressBar.active = true;
-            CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(100);
-            int number = Random.Range(1, 15);
+            CircularProgressBar.SetActive(true);
+            CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
 
-            if (!OneLife)
+            if (number <= 3)
             {
-                if (number <= 3)
-                {
-                    PowerUpForcefield();
-                }
-                else if (number > 3 & number <= 12)
-                {
-                    PowerUpColor();
-                }
-                else if (number >= 13)
-                {
-                    PowerUpBuckshot();
-                }
+                PowerUpForcefield();
             }
-            else
+            else if (number > 3 & number <= 12)
             {
-                if (number <= 7)
-                {
-                    PowerUpColor();
-                }
-                else if (number >= 8)
-                {
-                    PowerUpGainLife();
-                }
+                PowerUpColor();
             }
-            
-            
+            else if (number >= 13)
+            {
+                PowerUpBuckshot();
+            }
         }
-        
+        else if(Ready && OneLife)
+        {
+            if (number <= 7)
+            {
+                //here becuase gaining life dosent need a bar
+                CircularProgressBar.SetActive(true);
+                CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
+                PowerUpColor();
+
+            }
+            else if (number >= 8)
+            {
+                PowerUpGainLife();
+            }
+        }
     }
+            
+            
+        
 
     public void PowerUpColor()
     {
@@ -100,7 +103,7 @@ public class PickUpController : MonoBehaviour
     IEnumerator TimeReturnForcefield()
     {
         //disable forcefield.
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(10);
         ForceField.SetActive(false);
         Ready = true;
     }

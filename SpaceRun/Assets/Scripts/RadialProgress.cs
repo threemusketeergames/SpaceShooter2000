@@ -10,30 +10,24 @@ public class RadialProgress : MonoBehaviour
     public float speed;
     public float currentValue;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-       if(currentValue <= 100)
+       if(currentValue <= 10)
         {
-            currentValue -= speed * Time.deltaTime;
+            currentValue -= speed *  Time.deltaTime;
 
-            LoadingBar.fillAmount = currentValue / 100;
+            LoadingBar.fillAmount = currentValue / 10;
             if(currentValue <= 0)
             {
-                Destroy(circularProgressBar);
+                this.gameObject.SetActive(false);
             }
         }
     }
 
      public void PickUpTimer(float xcurrentValue)
     {
-        if (xcurrentValue >= 100)
+        if (xcurrentValue >= 10)
         {
             
 
