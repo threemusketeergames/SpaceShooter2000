@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
-            if (gamecontrollerscript.GetComponent<GameController>().Canshoot & !gamecontrollerscript.GetComponent<LightSpeed>().LighSpeedActive)
+            if (gamecontrollerscript.GetComponent<GameController>().Canshoot && !gamecontrollerscript.GetComponent<LightSpeed>().LighSpeedActive)
             {
                 if (buckshoton)
                 {

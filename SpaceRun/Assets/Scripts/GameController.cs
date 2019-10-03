@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(Player != null & !this.GetComponent<LightSpeed>().LighSpeedActive)
+        if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive)
         {
             timeAliveDecimal += Time.deltaTime;
             timeAlive = Mathf.RoundToInt(timeAliveDecimal);

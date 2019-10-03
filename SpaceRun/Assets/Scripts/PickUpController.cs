@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUpController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PickUpController : MonoBehaviour
     public Renderer rend;
     public bool Ready;
     public GameObject CircularProgressBar;
+    public Text PowerupDisplay;
     public bool OneLife;
     public int PowerupLastTime;
 
@@ -29,8 +31,18 @@ public class PickUpController : MonoBehaviour
         ForceField.SetActive(false);
         //ready to start a NEW power up
         Ready = true;
-
+        //no power up indicator
+        CircularProgressBar.SetActive(false);
     }
+    public void Update()
+    {
+        if (Ready)
+        {
+            PowerupDisplay.text = "Power Up:";
+
+        }
+    }
+
     public void DeterminPowerUp()
     {
         //var go = Instantiate(CircularProgressBar) as GameObject;
@@ -43,24 +55,25 @@ public class PickUpController : MonoBehaviour
             CircularProgressBar.SetActive(true);
             CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
 
-            if (number <= 3)
+            if (number <= 5)
             {
                 PowerUpForcefield();
             }
-            else if (number > 3 & number <= 12)
+            else if (number > 5 && number <= 10)
             {
                 PowerUpColor();
             }
-            else if (number >= 13)
+            else if (number >= 11)
             {
                 PowerUpBuckshot();
             }
         }
         else if(Ready && OneLife)
         {
+            Ready = false;
             if (number <= 7)
             {
-                //here becuase gaining life dosent need a bar
+                //here because gaining life dosent need a bar
                 CircularProgressBar.SetActive(true);
                 CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
                 PowerUpColor();
@@ -82,8 +95,9 @@ public class PickUpController : MonoBehaviour
         CurrentColor.g += 2.0f;
         rend.material.color = CurrentColor;
         //Slow time down
-        Time.timeScale = 0.5f;
+        Time.timeScale = 0.75f;
         StartCoroutine(TimeReturnColor());
+        PowerupDisplay.text = "Power Up: \n Time Slow";
 
     }
     IEnumerator TimeReturnColor()
@@ -99,6 +113,8 @@ public class PickUpController : MonoBehaviour
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
         //undestroyable
+        PowerupDisplay.text = "Power Up: \n Force Field";
+
     }
     IEnumerator TimeReturnForcefield()
     {
@@ -110,6 +126,8 @@ public class PickUpController : MonoBehaviour
     public void PowerUpBuckshot()
     {
       this.GetComponent<PlayerController>().StartBuckshot();
+      PowerupDisplay.text = "Power Up:\n Buckshot";
+
     }
     public void PowerUpGainLife()
     {
