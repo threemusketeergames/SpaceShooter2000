@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //public float speed;
-    //public float tilt;
-    //public Boundary boundary;
+
 
     public GameObject bullet;
     public Transform shotSpawn;
@@ -18,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private float nextFire;
     public GameObject gamecontrollerscript;
+
    
 
     void Update()
