@@ -8,9 +8,10 @@ public class PathTubeSpawner : MonoBehaviour
 
     public GameObject TubePrefab;
 
-    public float innerRadius;
-    public float outerRadius;
-    public float density;
+    public float innerRadius = 6f;
+    public float outerRadius = 10f;
+    public float density = 0.1f;
+    public int numTubeVertices = 40;
 
     public bool enableTubeGizmo = true;
 
@@ -24,6 +25,8 @@ public class PathTubeSpawner : MonoBehaviour
         Vector3.zero,
         5 * Vector3.forward
     };
+
+    private Vector3[] firstCircle;
     // Use this for initialization
     void Start()
     {
@@ -58,8 +61,6 @@ public class PathTubeSpawner : MonoBehaviour
             int spawnQuantity = (int)(spawnVolume * density);
             float radiusDiff = outerRadius - innerRadius;
 
-            var newTube = Instantiate(TubePrefab, centerPoint, Quaternion.LookRotation(segmentStuffs.segment));
-            newTube.transform.localScale = new Vector3(outerRadius, outerRadius, segmentStuffs.segment.magnitude);
 
             Vector3 lastSegmentMidpoint = Vector3.zero;
             float lastSegmentMaxMidpointDist = 0f;
@@ -75,6 +76,48 @@ public class PathTubeSpawner : MonoBehaviour
                 lastSegmentMidpoint = (firstPoint.Value + centerPoint) / 2;
                 lastSegmentMaxMidpointDist = Vector3.Distance(firstPoint.Value, centerPoint) / 2;
             }
+
+            var newTube = Instantiate(TubePrefab, centerPoint, Quaternion.LookRotation(Vector3.forward));
+            //newTube.transform.localScale = new Vector3(outerRadius, outerRadius, segmentStuffs.segment.magnitude);
+
+            #region GenerateTubeMesh
+
+            var mesh = new Mesh();
+            var verticies = new Vector3[numTubeVertices * 2]; //Two sets of verticies, one for each side of the tube.
+
+            Vector3 ihat; //Vector algebra.  Ihat  points in the direction of "x"
+            Vector3 jhat; //same thing for the "y" direction.
+                          //First circle
+                          //My original code does some extra stuff here to handle bends in the tube, but I've cropped it out to keep things simple.
+            ihat = segmentStuffs.rightVector;
+            jhat = segmentStuffs.upVector;
+
+            var step = Mathf.PI * 2 / numTubeVertices;
+            firstCircle = GizmosUtil.PointsOn3DArc(centerPoint, ihat, jhat, outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //GizmosUtil is a custom helper utility.  I'm using it here to get a full circle of points.  I can certify that this works as I use the same method to generate a Gizmos Circle.
+            var secondCircle = GizmosUtil.PointsOn3DArc(newPoint, segmentStuffs.rightVector, segmentStuffs.upVector, outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //upVector and rightVector are analogous to "ihat" and "jhat".  I hadn't learned about transformation matricies yet when I wrote this, but know that this hat business is basically doing the same thing as one of those.
+            mesh.vertices = firstCircle.Concat(secondCircle).ToArray();
+            var triangles = new int[numTubeVertices * 6]; //Connecting the edge verticies into a series of triangles takes twice the number of triangles as verticies (I drew this out), and this needs thrice that for the three points to every triangle. Hence, six.
+            for (int i = 0; i < numTubeVertices; i++)
+            {
+                int startIndex = i * 6;
+                triangles[startIndex + 3] = i; //Start with the iterated point (this will fall on first circle)
+                triangles[startIndex + 4] = i + numTubeVertices; //Connect to same point on second circle;
+                triangles[startIndex + 5] = i + numTubeVertices + 1; //Connect to next point over on second circle;
+
+
+                triangles[startIndex] = i; //Start again with iterated point
+                triangles[startIndex + 1] = i + 1; //Connect to next point over on first circle
+                triangles[startIndex + 2] = i + numTubeVertices + 1;//Connect to point corresponding to this next point, but on second circle
+                if (triangles[startIndex + 2] >= mesh.vertices.Length) triangles[startIndex + 2] -= numTubeVertices;
+                if (triangles[startIndex + 5] >= mesh.vertices.Length) triangles[startIndex + 5] -= numTubeVertices;
+            }
+            mesh.triangles = triangles;
+
+            mesh.RecalculateNormals();
+
+
+            newTube.GetComponent<MeshFilter>().mesh = mesh;
+            #endregion
 
             Vector2 point;
             float dist;
@@ -119,7 +162,8 @@ public class PathTubeSpawner : MonoBehaviour
 
     private void AsteroidAt(Vector3 asteroidPoint)
     {
-        if(asteroidModels==null||asteroidModels.Length == 0)
+        
+        if (asteroidModels == null || asteroidModels.Length == 0)
         {
             Debug.LogError("No Asteroid Models");
             return;
@@ -130,6 +174,7 @@ public class PathTubeSpawner : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
+        if(firstCircle!=null) foreach (var p in firstCircle) { Gizmos.DrawSphere(p, 0.25f); }
         Vector3[] waypoints = pathManager.Waypoints?.ToArray() ?? TestWaypoints;
         if (waypoints.Length > 1)
         {
