@@ -6935,7 +6935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumWaypoints: 2
+  NumWaypoints: 3
   StepDist: 15
   pathFeatures:
   - {fileID: 1904691135}
@@ -6955,6 +6955,7 @@ MonoBehaviour:
   pathManager: {fileID: 1904691136}
   TubePrefab: {fileID: 6064815044006290201, guid: 778fdb4be11d5c747b466c37194a1572,
     type: 3}
+  TubeObjects: []
   innerRadius: 6
   outerRadius: 10
   density: 0

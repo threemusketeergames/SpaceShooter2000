@@ -17,7 +17,7 @@ public class PathManager : MonoBehaviour
     {
         Waypoints = new Queue<Vector3>(NumWaypoints);
         CurrentFeatureGenerator = GetFeatureGenerator();
-        for(int i =0; i<NumWaypoints; i++)
+        for (int i = 0; i < NumWaypoints; i++)
         {
             while (!CurrentFeatureGenerator.MoveNext())
             {
@@ -34,8 +34,9 @@ public class PathManager : MonoBehaviour
         if (Waypoints?.Count >= 2)
         {
             startDirection = startPosition - Waypoints.ElementAt(Waypoints.Count - 2); //1 from end
+            startDirection.Normalize();
         }
-        return pathFeatures.Single().GetGenerator(startPosition, startDirection.normalized, StepDist, 50f);
+        return pathFeatures.Single().GetGenerator(startPosition, startDirection, StepDist, 50f);
     }
 
     private void OnDrawGizmos()
@@ -44,7 +45,7 @@ public class PathManager : MonoBehaviour
         var waypointArr = Waypoints.ToArray();
         for (int i = 0; i < Waypoints.Count; i++)
         {
-            Gizmos.DrawWireSphere(waypointArr[i],StepDist / 4);
+            Gizmos.DrawWireSphere(waypointArr[i], StepDist / 4);
             if (i == 0)
             {
                 continue;
@@ -55,6 +56,6 @@ public class PathManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
