@@ -1,17 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    public Queue<Vector3> Waypoints;
+    private Queue<Vector3> waypoints;
     public int NumWaypoints;
     public float StepDist;
     IEnumerator<Vector3> CurrentFeatureGenerator;
 
     public PathFeature[] pathFeatures;
     public Color gizmosColor;
+
+    public Vector3[] TestWaypoints = new Vector3[]
+    {
+        Vector3.zero,
+        5 * Vector3.forward
+    };
+
+    public Queue<Vector3> Waypoints
+    {
+        get
+        {
+            return waypoints ?? (waypoints = new Queue<Vector3>(TestWaypoints)); //Default to TestWaypoints (for in Editor, when Start() hasn't been called but gizmos still need to happen)
+        }
+        set => waypoints = value;
+    }
+
+
     // Start is called before the first frame update
     private void Start()
     {
