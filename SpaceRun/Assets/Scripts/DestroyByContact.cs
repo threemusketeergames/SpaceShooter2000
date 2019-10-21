@@ -14,7 +14,7 @@ public class DestroyByContact : MonoBehaviour
 		GameObject gameControllerObject = GameObject.FindGameObjectWithTag ("GameController");
 		if (gameControllerObject != null)
 		{
-			gameController = gameControllerObject.GetComponent <GameController>();
+			gameController = gameControllerObject.GetComponent<GameController>();
 		}
 		if (gameController == null)
 		{
@@ -35,13 +35,14 @@ public class DestroyByContact : MonoBehaviour
 			Instantiate(explosion, transform.position, transform.rotation);
 
         }
-        if(other.tag == "Bullet")
+        if (other.tag == "Bullet")
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
+            gameController.AddScore(scoreValue);
         }
 
-		if (other.tag == "Player")
+        if (other.tag == "Player")
 		{
             //demote the health in gamecontroller
             if (gameController.TakeHealth())
@@ -50,7 +51,6 @@ public class DestroyByContact : MonoBehaviour
                 Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
                 Camera.parent = null;
                 Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-                gameController.AddScore(scoreValue);
                 Destroy(other.gameObject);
                 Destroy(gameObject);
             }
