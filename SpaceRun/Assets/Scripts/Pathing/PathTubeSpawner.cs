@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 
 public class PathTubeSpawner : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PathTubeSpawner : MonoBehaviour
     public int numTubeLines = 8;
 
     public GameObject[] asteroidModels;
+    public GameObject ParticleTube;
+
+    ParticleTubeSpawner particleTubeSpawner;
 
     public Vector3[] TestWaypoints = new Vector3[]
     {
@@ -27,13 +31,14 @@ public class PathTubeSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        particleTubeSpawner = ParticleTube.GetComponent<ParticleTubeSpawner>();
         for (int i = 1; i < pathManager.Waypoints.Count; i++)
         {
-            SpawnForWaypoint(i);
+            particleTubeSpawner.AddSegment(SpawnForWaypoint(i).ToArray());
         }
     }
 
-    void SpawnForWaypoint(int index)
+    IEnumerable<Vector3> SpawnForWaypoint(int index)
     {
         if (index > 0)
         {
@@ -98,7 +103,7 @@ public class PathTubeSpawner : MonoBehaviour
                         (Vector3.Distance(asteroidPoint, localLinePoint + localLineDist * wedgeAngler.lastSegmentDir) < outerRadius)
                 //find point nearest asteroidPoint on lastSegment line.  If A) within the bounds of that segmentStuffs.segment and B) within outerRadius of that segmentStuffs.segment, try again.
                 );
-                AsteroidAt(asteroidPoint);
+                yield return asteroidPoint;
             }
 
             if (useWedgeAngler) //Spawn asteroids in spherical corner wedge (in a shape like a slice of an orange)
@@ -111,21 +116,22 @@ public class PathTubeSpawner : MonoBehaviour
                     Vector3 randihat = wedgeAngler.wedgePerpFromLast * Mathf.Cos(randihatAngle) + wedgeAngler.lastSegmentDir * Mathf.Sin(randihatAngle);
                     asteroidPoint = GizmosUtil.PointOn3DCircle(Vector3.zero, randihat, wedgeAngler.wedgePlaneNormal, Random.Range(0, radiusDiff), Random.Range(-Mathf.PI * 0.5f, Mathf.PI * 0.5f));
                     asteroidPoint = centerPoint + asteroidPoint + asteroidPoint.normalized * innerRadius;
-                    AsteroidAt(asteroidPoint);
+                    yield return asteroidPoint;
                 }
             }
         }
     }
 
-    private void AsteroidAt(Vector3 asteroidPoint)
-    {
-        if(asteroidModels==null||asteroidModels.Length == 0)
-        {
-            Debug.LogError("No Asteroid Models");
-            return;
-        }
-        Instantiate(asteroidModels[Random.Range(0, asteroidModels.Length - 1)], asteroidPoint, Quaternion.Euler(Vector3.forward));
-    }
+    //private void AsteroidAt(Vector3 asteroidPoint)
+    //{
+
+    //    if(asteroidModels==null||asteroidModels.Length == 0)
+    //    {
+    //        Debug.LogError("No Asteroid Models");
+    //        return;
+    //    }
+    //    Instantiate(asteroidModels[Random.Range(0, asteroidModels.Length - 1)], asteroidPoint, Quaternion.Euler(Vector3.forward));
+    //}
 
     private void OnDrawGizmos()
     {
