@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     public Text highScore;
 
     public GameObject Player;
-    public Transform StartPosition;
 
     public Text scoreText;
     public Text restartText;
