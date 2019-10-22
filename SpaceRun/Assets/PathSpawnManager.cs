@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PathSpawnManager : MonoBehaviour
 {
-    public PathManager pathManager;
+    private PathManager pathManager;
     public float innerRadius = 6f;
     public float outerRadius = 10f;
 
@@ -12,15 +12,12 @@ public class PathSpawnManager : MonoBehaviour
     public int numCornerBands = 10;
     public int numTubeLines = 8;
 
-    private void OnEnable()
-    {
-        pathManager = GetComponent<PathManager>(); 
-        
-    }
+    public PathManager PathManager { get => pathManager ?? (pathManager = GetComponent<PathManager>()); set => pathManager = value; }
+
     private void Start()
     {
         // Use this for initialization
-        for (int i = 1; i < pathManager.Waypoints.Count; i++)
+        for (int i = 1; i < PathManager.Waypoints.Count; i++)
         {
             SpawnForWaypoint(i);
         }
@@ -34,22 +31,22 @@ public class PathSpawnManager : MonoBehaviour
             SpawnSegmentInfo ssi = new SpawnSegmentInfo();
             if (index > 1)
             {
-                ssi.firstPoint = pathManager.Waypoints.ElementAt(index - 2);
+                ssi.firstPoint = PathManager.Waypoints.ElementAt(index - 2);
             }
             else
             {
                 ssi.firstPoint = null;
             }
 
-            ssi.centerPoint = pathManager.Waypoints.ElementAt(index - 1);
-            ssi.newPoint = pathManager.Waypoints.ElementAt(index);
+            ssi.centerPoint = PathManager.Waypoints.ElementAt(index - 1);
+            ssi.newPoint = PathManager.Waypoints.ElementAt(index);
 
             ssi.mainSegment = new LineSegmentInfo(ssi.centerPoint, ssi.newPoint);
-            ssi.lastSegment = ssi.firstPoint.HasValue ? ssi.centerPoint - ssi.firstPoint : null;
+            ssi.lastSegment = ssi.firstPoint.HasValue ? new LineSegmentInfo(ssi.centerPoint, ssi.firstPoint.Value) : null;
             ssi.useWedgeAngler = ssi.firstPoint.HasValue; //First check to use wedgeAngler:  Does first point exist
             if (ssi.useWedgeAngler)
             {
-                ssi.useWedgeAngler = WedgeAngler.TryMake(ssi.lastSegment.Value, ssi.mainSegment.segment, out WedgeAngler wedgeAngler); //Second check to use wedgeAngler (done inside the function):  do the three points actually form an angle?
+                ssi.useWedgeAngler = WedgeAngler.TryMake(ssi.lastSegment.dir, ssi.mainSegment.seg, out WedgeAngler wedgeAngler); //Second check to use wedgeAngler (done inside the function):  do the three points actually form an angle?
                 ssi.wedgeAngler = wedgeAngler;
             }
             SendMessage("SpawnForSegment", ssi);
@@ -58,7 +55,7 @@ public class PathSpawnManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Vector3[] waypoints = pathManager.Waypoints.ToArray();
+        Vector3[] waypoints = PathManager.Waypoints.ToArray();
         if (waypoints.Length > 1)
         {
             for (int i = 1; i < waypoints.Length; i++)
@@ -70,7 +67,7 @@ public class PathSpawnManager : MonoBehaviour
                     Gizmos.DrawLine(centerPoint, newPoint);
                 }
 
-                LineSegmentInfo segmentStuffs = new LineSegmentInfo(centerPoint, newPoint);
+                LineSegmentInfo mainSegment = new LineSegmentInfo(centerPoint, newPoint);
 
                 bool useWedgeAngler = i >= 2;
                 Vector3? firstPoint;
@@ -83,30 +80,29 @@ public class PathSpawnManager : MonoBehaviour
                     firstPoint = null;
                 }
 
-                Vector3 segment = newPoint - centerPoint;
+                LineSegmentInfo lastSegment = useWedgeAngler ? new LineSegmentInfo(firstPoint.Value,centerPoint) : (LineSegmentInfo) null;
                 WedgeAngler wedgeAngler = null;
                 if (useWedgeAngler)
                 {
-                    var lastSegment = centerPoint - firstPoint.Value;
-                    useWedgeAngler = WedgeAngler.TryMake(lastSegment, segment, out wedgeAngler);
+                    useWedgeAngler = WedgeAngler.TryMake(lastSegment.seg, mainSegment.seg, out wedgeAngler);
                 }
 
                 if (enableTubeGizmo)
                 {
                     using (new GizmosColor(new Color(1, 1f, 0)))
                     {
-                        Gizmos.DrawLine(newPoint, newPoint + segmentStuffs.upVector);
-                        Gizmos.DrawLine(newPoint, newPoint + segmentStuffs.rightVector);
+                        Gizmos.DrawLine(newPoint, newPoint + mainSegment.upVector);
+                        Gizmos.DrawLine(newPoint, newPoint + mainSegment.rightVector);
 
                         foreach (var radius in new[] { innerRadius, outerRadius })
                         {
                             foreach (var center in new[] { newPoint, centerPoint })
-                                GizmosUtil.DrawCircle(center, segmentStuffs.rightVector, segmentStuffs.upVector, radius);
+                                GizmosUtil.DrawCircle(center, mainSegment.rightVector, mainSegment.upVector, radius);
                         }
 
                         for (float theta = 0; theta < 2 * Mathf.PI; theta += Mathf.PI * 2 / numTubeLines)
                         {
-                            Vector3 relativeVector = GizmosUtil.PointOn3DCircle(Vector3.zero, segmentStuffs.rightVector, segmentStuffs.upVector, outerRadius, theta);
+                            Vector3 relativeVector = GizmosUtil.PointOn3DCircle(Vector3.zero, mainSegment.rightVector, mainSegment.upVector, outerRadius, theta);
                             Gizmos.DrawLine(centerPoint + relativeVector, newPoint + relativeVector);
                         }
                         if (useWedgeAngler)
@@ -121,18 +117,18 @@ public class PathSpawnManager : MonoBehaviour
                                     GizmosUtil.DrawArc(
                                         centerPoint: bandCenter,
                                         ihat: wedgeAngler.wedgePerpFromLast,
-                                        jhat: wedgeAngler.lastSegmentDir,
+                                        jhat: lastSegment.dir,
                                         radius: bandRadius,
                                         startAngle: 0,
                                         stopAngle: wedgeAngler.wedgeAngle);
                                 }
-                                GizmosUtil.DrawArcDegrees(centerPoint, wedgeAngler.wedgePerpFromLast, wedgeAngler.wedgePlaneNormal, outerRadius, 90, 270);
-                                var cutback = outerRadius * Mathf.Tan(wedgeAngler.wedgeAngle / 2) * wedgeAngler.lastSegmentDir;
-                                for (float theta = Mathf.PI * 0.5f; theta <= 1.5f * Mathf.PI; theta += 2 * Mathf.PI / numTubeLines)
-                                {
-                                    Vector3 point = centerPoint + GizmosUtil.PointOn3DCircle(Vector3.zero, wedgeAngler.wedgePerpFromLast, wedgeAngler.wedgePlaneNormal, outerRadius, theta);
-                                    Gizmos.DrawLine(point, point - cutback);
-                                }
+                                //GizmosUtil.DrawArcDegrees(centerPoint, wedgeAngler.wedgePerpFromLast, wedgeAngler.wedgePlaneNormal, outerRadius, 90, 270);
+                                //var cutback = outerRadius * Mathf.Tan(wedgeAngler.wedgeAngle / 2) * lastSegment.dir;
+                                //for (float theta = Mathf.PI * 0.5f; theta <= 1.5f * Mathf.PI; theta += 2 * Mathf.PI / numTubeLines)
+                                //{
+                                //    Vector3 point = centerPoint + GizmosUtil.PointOn3DCircle(Vector3.zero, wedgeAngler.wedgePerpFromLast, wedgeAngler.wedgePlaneNormal, outerRadius, theta);
+                                //    Gizmos.DrawLine(point, point - cutback);
+                                //}
                             }
                         }
                     }
@@ -152,16 +148,16 @@ public class LineSegmentInfo
 {
     public LineSegmentInfo(Vector3 start, Vector3 end)
     {
-        segment = end - start;
-        segmentDir = segment.normalized;
-        float perpZ = (-segmentDir.x * 0 - segmentDir.y * 1) / segmentDir.z;
+        seg = end - start;
+        dir = seg.normalized;
+        float perpZ = (-dir.x * 0 - dir.y * 1) / dir.z;
         upVector = new Vector3(0, 1, perpZ);
         upVector /= upVector.magnitude;
-        rightVector = Vector3.Cross(segmentDir, upVector);
+        rightVector = Vector3.Cross(dir, upVector);
         rightVector /= rightVector.magnitude;
     }
-    public Vector3 segment { get; set; }
-    public Vector3 segmentDir { get; set; }
+    public Vector3 seg { get; set; }
+    public Vector3 dir { get; set; }
     public Vector3 upVector { get; set; }
     public Vector3 rightVector { get; set; }
 }
@@ -178,8 +174,6 @@ public class WedgeAngler
             wedgePlaneNormal /= wedgePlaneNormal.magnitude; //Normalize manually (for some reason the built-in function wouldn't work)
             wedgeAngler = new WedgeAngler()
             {
-                lastSegment = lastSegment,
-                lastSegmentDir = lastSegment.normalized,
                 wedgePlaneNormal = wedgePlaneNormal,
                 wedgePerpFromLast = Vector3.Cross(wedgePlaneNormal, lastSegment),
                 wedgeAngle = wedgeAngle
@@ -194,8 +188,6 @@ public class WedgeAngler
         }
 
     }
-    public Vector3 lastSegment { get; set; }
-    public Vector3 lastSegmentDir { get; set; }
     public Vector3 wedgePlaneNormal { get; set; }
     public Vector3 wedgePerpFromLast { get; set; }
     public float wedgeAngle { get; set; }
@@ -206,7 +198,7 @@ public class SpawnSegmentInfo
     public Vector3 centerPoint { get; set; }
     public Vector3 newPoint { get; set; }
     public LineSegmentInfo mainSegment { get; set; }
-    public Vector3? lastSegment { get; set; }
+    public LineSegmentInfo lastSegment { get; set; }
     public bool useWedgeAngler { get; set; }
     public WedgeAngler wedgeAngler { get; set; }
 }

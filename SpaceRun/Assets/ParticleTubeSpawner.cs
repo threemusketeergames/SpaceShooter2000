@@ -37,7 +37,7 @@ public class ParticleTubeSpawner : MonoBehaviour
     IEnumerable<Vector3> GetPoints(SpawnSegmentInfo ssi)
     {
         float outerSphereVolume = 4 / 3 * Mathf.PI * Mathf.Pow(psm.outerRadius, 3);
-        float segmentLength = ssi.mainSegment.segment.magnitude;
+        float segmentLength = ssi.mainSegment.seg.magnitude;
         float hollowedCircleArea = 2 * Mathf.PI * (Mathf.Pow(psm.outerRadius, 2) - Mathf.Pow(psm.innerRadius, 2)); // Subtract big circle by little circle.  I factored out the 2pi like a total math pro.
         float spawnVolume = hollowedCircleArea * segmentLength;
         int spawnQuantity = (int)(spawnVolume * density);
@@ -63,14 +63,14 @@ public class ParticleTubeSpawner : MonoBehaviour
                 point = Random.insideUnitCircle * radiusDiff;
                 point += point.normalized * psm.innerRadius;
                 dist = Random.Range(0, segmentLength);
-                asteroidPoint = ssi.centerPoint + point.x * ssi.mainSegment.rightVector + point.y * ssi.mainSegment.upVector + dist * ssi.mainSegment.segmentDir;
+                asteroidPoint = ssi.centerPoint + point.x * ssi.mainSegment.rightVector + point.y * ssi.mainSegment.upVector + dist * ssi.mainSegment.dir;
                 if (ssi.useWedgeAngler)
                 {
                     localLinePoint = asteroidPoint - lastSegmentMidpoint.Value;
                 }
             } while (ssi.useWedgeAngler &&  //This while will keep re-guessing points (if wedge angler is being used) until one lands outside of the cutout zone.
-                    (localLineDist = Vector3.Dot(localLinePoint, ssi.wedgeAngler.lastSegmentDir)) < lastSegmentMaxMidpointDist &&
-                    (Vector3.Distance(asteroidPoint, localLinePoint + localLineDist * ssi.wedgeAngler.lastSegmentDir) < psm.outerRadius)
+                    (localLineDist = Vector3.Dot(localLinePoint, ssi.lastSegment.dir)) < lastSegmentMaxMidpointDist &&
+                    (Vector3.Distance(asteroidPoint, localLinePoint + localLineDist * ssi.lastSegment.dir) < psm.outerRadius)
             //find point nearest asteroidPoint on lastSegment line.  If A) within the bounds of that segmentStuffs.segment and B) within outerRadius of that segmentStuffs.segment, try again.
             );
             yield return asteroidPoint;
@@ -83,7 +83,7 @@ public class ParticleTubeSpawner : MonoBehaviour
             for (int asteroid = 0; asteroid < wedgeSpawnQuantity; asteroid++)
             {
                 float randihatAngle = Random.Range(0f, ssi.wedgeAngler.wedgeAngle);
-                Vector3 randihat = ssi.wedgeAngler.wedgePerpFromLast * Mathf.Cos(randihatAngle) + ssi.wedgeAngler.lastSegmentDir * Mathf.Sin(randihatAngle);
+                Vector3 randihat = ssi.wedgeAngler.wedgePerpFromLast * Mathf.Cos(randihatAngle) + ssi.lastSegment.dir * Mathf.Sin(randihatAngle);
                 asteroidPoint = GizmosUtil.PointOn3DCircle(Vector3.zero, randihat, ssi.wedgeAngler.wedgePlaneNormal, Random.Range(0, radiusDiff), Random.Range(-Mathf.PI * 0.5f, Mathf.PI * 0.5f));
                 asteroidPoint = ssi.centerPoint + asteroidPoint + asteroidPoint.normalized * psm.innerRadius;
                 yield return asteroidPoint;

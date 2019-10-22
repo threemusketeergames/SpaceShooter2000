@@ -28,26 +28,30 @@ public class PathTubeSpawner : MonoBehaviour
         var mesh = new Mesh();
         var verticies = new Vector3[numTubeVertices * 2]; //Two sets of verticies, one for each side of the tube.
 
-        Vector3 ihat;
-        Vector3 jhat;
+        Vector3 firstihat;
+        Vector3 secondihat;
+        Vector3 bothjhat;
         //First circle
         if (ssi.useWedgeAngler)
         {
-            //Warp the circle into a nice elipse matching (quite nicely) with the last circle in the tube. The cheaty way to do this is to scale the basis vector to a length which isn't one.
-            ihat = (1 / Mathf.Cos(ssi.wedgeAngler.wedgeAngle)) * -ssi.wedgeAngler.wedgePerpFromLast; //You can't, I guess, directly take a vector / a float.  I could do this per-component to save computing time, but where's the fun in that.
-            jhat = ssi.wedgeAngler.wedgePlaneNormal;
+            firstihat = ssi.wedgeAngler.wedgePerpFromLast;
+            secondihat = -Vector3.Cross(ssi.wedgeAngler.wedgePlaneNormal, ssi.mainSegment.seg);
+            secondihat.Normalize();
+            bothjhat = ssi.wedgeAngler.wedgePlaneNormal;
         }
         else
         {
-            ihat = ssi.mainSegment.rightVector;
-            jhat = ssi.mainSegment.upVector;
+            firstihat = secondihat = ssi.mainSegment.rightVector;
+            bothjhat = ssi.mainSegment.upVector;
         }
 
         var step = Mathf.PI * 2 / numTubeVertices;
-        var firstCircle = GizmosUtil.PointsOn3DArc(ssi.centerPoint, ihat, jhat, psm.outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //GizmosUtil is a custom helper utility.  I'm using it here to get a full circle of points.  I can certify that this works as I use the same method to generate a Gizmos Circle.
-        var secondCircle = GizmosUtil.PointsOn3DArc(ssi.newPoint, ssi.mainSegment.rightVector, ssi.mainSegment.upVector, psm.outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //upVector and rightVector are analogous to "ihat" and "jhat".  I hadn't learned about transformation matricies yet when I wrote this, but know that this hat business is basically doing the same thing as one of those.
+        var firstCircle = GizmosUtil.PointsOn3DArc(ssi.centerPoint, firstihat, bothjhat, psm.outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //GizmosUtil is a custom helper utility.  I'm using it here to get a full circle of points.  I can certify that this works as I use the same method to generate a Gizmos Circle.
+        var secondCircle = GizmosUtil.PointsOn3DArc(ssi.newPoint, secondihat, bothjhat, psm.outerRadius, 0, Mathf.PI * 2 - step, step).ToArray(); //upVector and rightVector are analogous to "ihat" and "jhat".  I hadn't learned about transformation matricies yet when I wrote this, but know that this hat business is basically doing the same thing as one of those.
         mesh.vertices = firstCircle.Concat(secondCircle).ToArray();
         var triangles = new int[numTubeVertices * 6]; //Connecting the edge verticies into a series of triangles takes twice the number of triangles as verticies (I drew this out), and this needs thrice that for the three points to every triangle. Hence, six.
+        var uv = new Vector2[numTubeVertices*2];
+        float uvStep = 1.0f / (numTubeVertices-1);
         for (int i = 0; i < numTubeVertices; i++)
         {
             int startIndex = i * 6;
@@ -61,8 +65,15 @@ public class PathTubeSpawner : MonoBehaviour
             if (triangles[startIndex + 4] >= numTubeVertices) triangles[startIndex + 4] -= numTubeVertices;
             if (triangles[startIndex + 5] >= mesh.vertices.Length) triangles[startIndex + 5] -= numTubeVertices;
             if (triangles[startIndex + 2] >= mesh.vertices.Length) triangles[startIndex + 2] -= numTubeVertices;
+
+            float x = uvStep * i;
+            uv[i].x = x;
+            uv[i].y = 0;
+            uv[i + numTubeVertices].x = x;
+            uv[i + numTubeVertices].y = 1;
         }
         mesh.triangles = triangles;
+        mesh.uv = uv;
 
         mesh.RecalculateNormals();
         newTube.GetComponent<MeshFilter>().mesh = mesh;

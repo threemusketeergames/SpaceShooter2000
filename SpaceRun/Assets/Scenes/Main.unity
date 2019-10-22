@@ -1175,7 +1175,6 @@ GameObject:
   - component: {fileID: 1368388901}
   - component: {fileID: 1368388900}
   - component: {fileID: 1368388899}
-  - component: {fileID: 1368388898}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -1183,20 +1182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1368388898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368388897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93cb45d44c16f45a4bbd5099fe096c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathName: AsteroidsPath
-  time: 20
 --- !u!199 &1368388899
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -1886,7 +1871,7 @@ ParticleSystem:
         m_RotationOrder: 4
   ShapeModule:
     serializedVersion: 6
-    enabled: 1
+    enabled: 0
     type: 8
     angle: 0
     length: 0.74
@@ -5925,13 +5910,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368388897}
-  m_LocalRotation: {x: -0.00063158537, y: 0.70765424, z: -0.00063256506, w: 0.7065584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9035083, y: 1.051026, z: 21.479544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 90.089005, z: -0.102000006}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415125070
 GameObject:
   m_ObjectHideFlags: 0
@@ -5949,7 +5934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1415125071
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -11168,6 +11153,16 @@ PrefabInstance:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6655509531781989194, guid: f300c3fb3d6620e44977cb2907e07245,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6655509531781989194, guid: f300c3fb3d6620e44977cb2907e07245,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6655509531509530436, guid: f300c3fb3d6620e44977cb2907e07245,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -11192,16 +11187,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.06541473
-      objectReference: {fileID: 0}
-    - target: {fileID: 6655509531781989194, guid: f300c3fb3d6620e44977cb2907e07245,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6655509531781989194, guid: f300c3fb3d6620e44977cb2907e07245,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f300c3fb3d6620e44977cb2907e07245, type: 3}
@@ -11648,6 +11633,7 @@ GameObject:
   - component: {fileID: 1904691136}
   - component: {fileID: 1904691135}
   - component: {fileID: 1904691134}
+  - component: {fileID: 1904691138}
   - component: {fileID: 1904691137}
   m_Layer: 0
   m_Name: Game Controller
@@ -11682,7 +11668,6 @@ MonoBehaviour:
   timeAlive: 0
   highScore: {fileID: 1034744790}
   Player: {fileID: 999344246}
-  StartPosition: {fileID: 884169319}
   scoreText: {fileID: 330698628}
   restartText: {fileID: 1118447433}
   gameOverText: {fileID: 1018459434}
@@ -11812,18 +11797,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1904691130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba2de641741f7424597af9425ff26a23, type: 3}
+  m_Script: {fileID: 11500000, guid: 19f58c6a77ff4554e8880fbce279146a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestWaypoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 10}
-  - {x: 0, y: 6.87, z: 25}
   innerRadius: 6
   outerRadius: 10
-  density: 0.15
   enableTubeGizmo: 1
-  enableAsteroidSpawns: 1
   numCornerBands: 10
   numTubeLines: 8
 --- !u!114 &1904691135
@@ -11852,11 +11831,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumWaypoints: 30
-  StepDist: 5
+  NumWaypoints: 5
+  StepDist: 15
   pathFeatures:
   - {fileID: 1904691135}
   gizmosColor: {r: 0, g: 0, b: 0, a: 0}
+  TestWaypoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 5}
 --- !u!114 &1904691137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11874,6 +11856,22 @@ MonoBehaviour:
   StartText: {fileID: 2040203715}
   LighSpeedActive: 0
   GroupToHide: {fileID: 1019284186}
+--- !u!114 &1904691138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4d6a3985ac868449fd3221b56b8067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TubePrefab: {fileID: 6064815044006290201, guid: 778fdb4be11d5c747b466c37194a1572,
+    type: 3}
+  TubeObjects: []
+  numTubeVertices: 40
 --- !u!1 &1920426293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7,
@@ -12014,7 +12012,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_AngularDrag
+      value: 20.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: ForceField
+      value: 
+      objectReference: {fileID: 7832761672317431590, guid: ba7da7d78996b9041b90fa5c6e6bda91,
+        type: 3}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: CircularProgressBar
+      value: 
+      objectReference: {fileID: 1349121644}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: Canvas
+      value: 
+      objectReference: {fileID: 699538450}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: CircularProgressBarSpawn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: Ship
+      value: 
+      objectReference: {fileID: 1904691131}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: OneLife
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: PowerupLastTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: PowerupDisplay
+      value: 
+      objectReference: {fileID: 1853167716}
+    - target: {fileID: 400002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -12062,59 +12113,6 @@ PrefabInstance:
       propertyPath: InitialModule.startRotation.scalar
       value: 0.16179202
       objectReference: {fileID: 0}
-    - target: {fileID: 5400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_AngularDrag
-      value: 20.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: ForceField
-      value: 
-      objectReference: {fileID: 7832761672317431590, guid: ba7da7d78996b9041b90fa5c6e6bda91,
-        type: 3}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: CircularProgressBar
-      value: 
-      objectReference: {fileID: 1349121644}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: Canvas
-      value: 
-      objectReference: {fileID: 699538450}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: CircularProgressBarSpawn
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: Ship
-      value: 
-      objectReference: {fileID: 1904691131}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: OneLife
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: PowerupLastTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
-      propertyPath: PowerupDisplay
-      value: 
-      objectReference: {fileID: 1853167716}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: moveSpeed
       value: 4
