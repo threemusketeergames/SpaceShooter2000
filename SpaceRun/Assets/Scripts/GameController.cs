@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1.0f;
         Canshoot = true;
         Health = StartHeath;
         LivesDisplay.text = "Lives:" + "X X";
@@ -134,6 +135,7 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "Game Over!";
         gameOver = true;
+        Time.timeScale = 0.0f;
         PlayerHighScored();
     }
     public bool TakeHealth()
