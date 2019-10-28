@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5400000}
   - component: {fileID: 13600000}
   - component: {fileID: 5520939842888345083}
-  - component: {fileID: 2876915141795172568}
   m_Layer: 0
   m_Name: Done_Bolt-Enemy
   m_TagString: Bullet
@@ -77,21 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd58181c835dd7540828a8e36b776891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -5
-  destroyTime: 1
---- !u!114 &2876915141795172568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f64144bf82dd745829b52225b8ef70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifetime: 5
+  speed: -2
+  destroyTime: 5
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
