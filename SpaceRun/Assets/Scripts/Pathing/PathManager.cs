@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ public class PathManager : MonoBehaviour
     public int NumWaypoints;
     public float StepDist;
     IEnumerator<Vector3> CurrentFeatureGenerator;
-
     public PathFeature[] pathFeatures;
     public Color gizmosColor;
 
@@ -17,7 +17,6 @@ public class PathManager : MonoBehaviour
         Vector3.zero,
         5 * Vector3.forward
     };
-
     public Queue<Vector3> Waypoints
     {
         get
@@ -27,22 +26,38 @@ public class PathManager : MonoBehaviour
         set => waypoints = value;
     }
 
+    private Transform player;
 
     // Start is called before the first frame update
     private void Start()
     {
         Waypoints = new Queue<Vector3>(NumWaypoints);
+        Waypoints.Enqueue(Vector3.zero); //Our first act of business is to add the starting point.
+        SendMessage("WaypointAdded");
         CurrentFeatureGenerator = GetFeatureGenerator();
         for (int i = 0; i < NumWaypoints; i++)
         {
-            while (!CurrentFeatureGenerator.MoveNext())
-            {
-                CurrentFeatureGenerator = GetFeatureGenerator();
-            }
-            Waypoints.Enqueue(CurrentFeatureGenerator.Current);
+            AddNewPoint();
         }
         Gizmos.color = gizmosColor;
+        player = GameObject.FindWithTag("Player").transform;
     }
+
+    private void AddNewPoint()
+    {
+        while (!CurrentFeatureGenerator.MoveNext())
+        {
+            CurrentFeatureGenerator = GetFeatureGenerator();
+        }
+        Waypoints.Enqueue(CurrentFeatureGenerator.Current);
+        SendMessage("WaypointAdded");
+    }
+    private void RemoveOldPoint()
+    {
+        Waypoints.Dequeue(); 
+        SendMessage("WaypointRemoved");
+    }
+
     IEnumerator<Vector3> GetFeatureGenerator()
     {
         Vector3 startPosition = Waypoints?.LastOrDefault() ?? Vector3.zero;
@@ -53,6 +68,17 @@ public class PathManager : MonoBehaviour
             startDirection.Normalize();
         }
         return pathFeatures.Single().GetGenerator(startPosition, startDirection, StepDist, 50f);
+    }
+    private void Update()
+    {
+        Vector3 playerPos = player.position;
+        float d2 = (Waypoints.ElementAt(1) - playerPos).magnitude; //Distance from player to point 2 (index 1)
+        float d3 = (Waypoints.ElementAt(2) - playerPos).magnitude; //Distance from player to point 3 (index 2)
+        if (d3 < d2) //Basically, when we're over halfway into the second segment (between points 2 and 3) ...
+        {
+            RemoveOldPoint(); // ...Take off the now-unseen segment
+            AddNewPoint();    // ... and add a new one in the distance.
+        }
     }
 
     private void OnDrawGizmos()
@@ -68,10 +94,5 @@ public class PathManager : MonoBehaviour
             }
             Gizmos.DrawLine(waypointArr[i - 1], waypointArr[i]);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

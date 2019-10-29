@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class PathTubeSpawner : MonoBehaviour
+public class VideoTubeSpawner : MonoBehaviour
 {
 
     public GameObject TubePrefab;
-    public List<GameObject> TubeObjects;
+    public Queue<GameObject> TubeObjects;
     public int numTubeVertices = 40;
 
     /// <summary>
@@ -17,6 +17,7 @@ public class PathTubeSpawner : MonoBehaviour
     void Start()
     {
         psm = GetComponent<PathSpawnManager>();
+        TubeObjects = new Queue<GameObject>(psm.PathManager.NumWaypoints);
     }
     void SpawnForSegment(SpawnSegmentInfo ssi)
     {
@@ -35,7 +36,7 @@ public class PathTubeSpawner : MonoBehaviour
         if (ssi.useWedgeAngler)
         {
             firstihat = ssi.wedgeAngler.wedgePerpFromLast;
-            secondihat = -Vector3.Cross(ssi.wedgeAngler.wedgePlaneNormal, ssi.mainSegment.seg);
+            secondihat = Vector3.Cross(ssi.wedgeAngler.wedgePlaneNormal, ssi.mainSegment.seg);
             secondihat.Normalize();
             bothjhat = ssi.wedgeAngler.wedgePlaneNormal;
         }
@@ -77,9 +78,13 @@ public class PathTubeSpawner : MonoBehaviour
 
         mesh.RecalculateNormals();
         newTube.GetComponent<MeshFilter>().mesh = mesh;
-        TubeObjects.Add(newTube);
+        TubeObjects.Enqueue(newTube);
         #endregion
 
+    }
+    void DespawnLastWaypoint()
+    {
+        Destroy(TubeObjects.Dequeue());
     }
 
     //private void AsteroidAt(Vector3 asteroidPoint)

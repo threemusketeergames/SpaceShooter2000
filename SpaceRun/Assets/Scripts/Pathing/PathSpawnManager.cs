@@ -17,12 +17,19 @@ public class PathSpawnManager : MonoBehaviour
     private void Start()
     {
         // Use this for initialization
-        for (int i = 1; i < PathManager.Waypoints.Count; i++)
-        {
-            SpawnForWaypoint(i);
-        }
+        //for (int i = 1; i < PathManager.Waypoints.Count; i++)
+        //{
+        //    SpawnForWaypoint(i);
+        //}
     }
-
+    void WaypointAdded()
+    {
+        SpawnForWaypoint(pathManager.Waypoints.Count - 1);
+    }
+    void WaypointRemoved()
+    {
+        SendMessage("DespawnLastWaypoint");
+    }
 
     void SpawnForWaypoint(int index)
     {
@@ -42,7 +49,7 @@ public class PathSpawnManager : MonoBehaviour
             ssi.newPoint = PathManager.Waypoints.ElementAt(index);
 
             ssi.mainSegment = new LineSegmentInfo(ssi.centerPoint, ssi.newPoint);
-            ssi.lastSegment = ssi.firstPoint.HasValue ? new LineSegmentInfo(ssi.centerPoint, ssi.firstPoint.Value) : null;
+            ssi.lastSegment = ssi.firstPoint.HasValue ? new LineSegmentInfo(ssi.firstPoint.Value,ssi.centerPoint) : null;
             ssi.useWedgeAngler = ssi.firstPoint.HasValue; //First check to use wedgeAngler:  Does first point exist
             if (ssi.useWedgeAngler)
             {
@@ -52,6 +59,7 @@ public class PathSpawnManager : MonoBehaviour
             SendMessage("SpawnForSegment", ssi);
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -155,11 +163,15 @@ public class LineSegmentInfo
         upVector /= upVector.magnitude;
         rightVector = Vector3.Cross(dir, upVector);
         rightVector /= rightVector.magnitude;
+        midpoint = (start + end) / 2f;
+        halfLength = seg.magnitude / 2;
     }
     public Vector3 seg { get; set; }
     public Vector3 dir { get; set; }
     public Vector3 upVector { get; set; }
     public Vector3 rightVector { get; set; }
+    public Vector3 midpoint { get; set; }
+    public float halfLength { get; set; } //Used with midpoint to see if something is on the segment or not.
 }
 
 public class WedgeAngler
