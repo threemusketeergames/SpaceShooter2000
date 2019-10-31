@@ -53,6 +53,7 @@ public class DestroyByContact : MonoBehaviour
                 Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
                 Destroy(other.gameObject);
                 Destroy(gameObject);
+                StartCoroutine(TimeStop());
             }
             else
             {
@@ -62,5 +63,12 @@ public class DestroyByContact : MonoBehaviour
            
 		}
 
+
 	}
+    IEnumerator TimeStop()
+    {
+        yield return new WaitForSeconds(1);
+        Time.timeScale = 0.0f;
+
+    }
 }

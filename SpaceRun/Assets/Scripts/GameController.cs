@@ -135,7 +135,6 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "Game Over!";
         gameOver = true;
-        Time.timeScale = 0.0f;
         PlayerHighScored();
     }
     public bool TakeHealth()
