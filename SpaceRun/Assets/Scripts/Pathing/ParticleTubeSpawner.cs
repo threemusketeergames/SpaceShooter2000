@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +10,7 @@ public class ParticleTubeSpawner : MonoBehaviour
     public float density = 0.1f;
     public int maxParticlesPerSegment = 200;
     public float orbitSpeed = 0.1f;
+    public Vector2 MaxMovement = new Vector2(1f, 0.75f);
 
     private int maxParticles;
 
@@ -20,6 +22,9 @@ public class ParticleTubeSpawner : MonoBehaviour
     Queue<SpawnSegmentInfo> newSegments;
     ParticleSystem.Particle[] particles;
     AsteroidOrbitInfo[] orbits;
+
+    Tuple<Vector3, Vector3>[] lines = new Tuple<Vector3, Vector3>[0];
+    Vector3[] points = new Vector3[0];
     int currentParticleIndex = 0;
     bool particleUpdate = false;
     private void Start()
@@ -39,7 +44,7 @@ public class ParticleTubeSpawner : MonoBehaviour
     private void LateUpdate()
     {
         bool update = false;
-        while (newSegments.Count > 0&&false)
+        while (newSegments.Count > 0)
         {
             if (!update)
             {
@@ -57,16 +62,16 @@ public class ParticleTubeSpawner : MonoBehaviour
                 orbits[currentParticleIndex] = new AsteroidOrbitInfo()
                 {
                     segment = ssi,
-                    direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)),
+                    direction = new Vector2(Random.Range(-MaxMovement.x, MaxMovement.x), Random.Range(-MaxMovement.y, MaxMovement.y)),
                     radius = Vector3.Cross(ssi.mainSegment.dir, segment.Current - ssi.centerPoint).magnitude
                 };
-                
+
                 par.position = segment.Current;
                 par.startLifetime = float.MaxValue;
                 par.startSize = Random.Range(0.75f, 1.75f);
                 par.rotation = Random.Range(0f, 180f);
                 particles[currentParticleIndex] = par;
-                
+
                 currentParticleIndex++;
                 if (currentParticleIndex >= maxParticles) currentParticleIndex -= maxParticles;
             }
@@ -100,16 +105,37 @@ public class ParticleTubeSpawner : MonoBehaviour
 
     Vector3 GetNextOrbitedPoint(AsteroidOrbitInfo aoi, Vector3 currentPos) //This function needs some serious optimization, it's getting called incessantly.
     {
+        var linesList = new List<Tuple<Vector3, Vector3>>();
+        var pointsList = new List<Vector3>();
         Vector3 pointOnSegment = Vector3.Project(currentPos - aoi.segment.centerPoint, aoi.segment.mainSegment.dir) + aoi.segment.centerPoint;
+        pointsList.Add(pointOnSegment);
 
-        float newPointDist = (pointOnSegment - aoi.segment.newPoint).magnitude;
-        float centerPointDist = (pointOnSegment - aoi.segment.centerPoint).magnitude;
+        Vector3 bottomPoint = aoi.segment.centerPoint;
 
-        float segmentLength = aoi.segment.mainSegment.seg.magnitude;
-        if (newPointDist > segmentLength || centerPointDist> segmentLength) //If we've fallen off the segment, bounce
+        if (aoi.segment.useWedgeAngler)
+        {
+            //linesList.Add(new Tuple<Vector3, Vector3>(aoi.segment.centerPoint, aoi.segment.centerPoint + aoi.segment.mainSegment.dir));
+            linesList.Add(new Tuple<Vector3, Vector3>(aoi.segment.centerPoint, aoi.segment.centerPoint + aoi.segment.mainSegment.dir * Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle) * aoi.radius));
+            pointsList.Add(aoi.segment.centerPoint + aoi.segment.mainSegment.dir * Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle) * aoi.radius);
+            bottomPoint += aoi.segment.mainSegment.dir * 
+                Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle)
+                * Mathf.Sin(
+                    Vector3.Angle(
+                        aoi.segment.wedgeAngler.wedgePlaneNormal,
+                        currentPos - pointOnSegment)
+                    )
+                * aoi.radius; //Fun math.
+        }
+        //pointsList.Add(bottomPoint);
+
+        float topPointDist = (pointOnSegment - aoi.segment.newPoint).magnitude;
+        float bottomPointDist = (pointOnSegment - bottomPoint).magnitude;
+
+        float segmentLength = (aoi.segment.newPoint - bottomPoint).magnitude;
+        if (topPointDist > segmentLength || bottomPointDist > segmentLength) //If we've fallen off the segment, bounce
         {
             float absYSpeed = Mathf.Abs(aoi.direction.y);
-            if (newPointDist > centerPointDist)
+            if (topPointDist > bottomPointDist)
             {
                 aoi.direction.y = absYSpeed;
             }
@@ -127,7 +153,27 @@ public class ParticleTubeSpawner : MonoBehaviour
         Vector3 jhat = Vector3.Cross(aoi.segment.mainSegment.dir, ihat);
         newPos = GizmosUtil.PointOn3DCircle(pointOnSegment, ihat, jhat, aoi.radius, (aoi.direction.x * orbitSpeed) / aoi.radius);
 
+
+        this.lines = linesList.ToArray();
+        this.points = pointsList.ToArray();
         return newPos;
+    }
+    private void OnDrawGizmos()
+    {
+        float colorStep = 1.0f / (points.Length + lines.Length+1);
+        int i = 0;
+        foreach (var point in points)
+        {
+            Gizmos.color = Color.HSVToRGB(colorStep * i, 1, 1);
+            Gizmos.DrawSphere(point, 0.25f);
+            i++;
+        }
+        foreach(var line in lines)
+        {
+            Gizmos.color = Color.HSVToRGB(colorStep * i, 1, 1);
+            Gizmos.DrawLine(line.Item1, line.Item2);
+            i++;
+        }
     }
 
 

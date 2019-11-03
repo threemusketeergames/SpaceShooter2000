@@ -35,7 +35,7 @@ public class PathManager : MonoBehaviour
         Waypoints.Enqueue(Vector3.zero); //Our first act of business is to add the starting point.
         SendMessage("WaypointAdded");
         CurrentFeatureGenerator = GetFeatureGenerator();
-        for (int i = 0; i < NumWaypoints; i++)
+        for (int i = 0; i < NumWaypoints-1; i++)
         {
             AddNewPoint();
         }
@@ -71,6 +71,11 @@ public class PathManager : MonoBehaviour
     }
     private void Update()
     {
+        if (NumWaypoints < 3)
+        {
+            Debug.LogWarning("Waypoint Path Following doesn't work with fewer than three waypoints");
+            return;
+        }
         Vector3 playerPos = player.position;
         float d2 = (Waypoints.ElementAt(1) - playerPos).magnitude; //Distance from player to point 2 (index 1)
         float d3 = (Waypoints.ElementAt(2) - playerPos).magnitude; //Distance from player to point 3 (index 2)
