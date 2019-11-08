@@ -6918,6 +6918,7 @@ GameObject:
   - component: {fileID: 1904691134}
   - component: {fileID: 1904691137}
   - component: {fileID: 1904691138}
+  - component: {fileID: 1904691139}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameController
@@ -7062,7 +7063,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.644
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7159,6 +7160,24 @@ MonoBehaviour:
   Creditspanel: {fileID: 0}
   buttons: []
   BackButton: {fileID: 0}
+--- !u!114 &1904691139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f72c2f6c24d7d040b63fe712e627e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentPoint: {x: 0, y: 0, z: 0}
+  Asteroid: {fileID: 0}
+  EnemyShip: {fileID: 0}
+  Rotation: {x: 0, y: 0, z: 0, w: 0}
+  hazards: []
+  hazardCount: 0
 --- !u!1 &1920426293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7,
