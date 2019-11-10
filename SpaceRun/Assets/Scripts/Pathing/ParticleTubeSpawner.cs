@@ -105,28 +105,24 @@ public class ParticleTubeSpawner : MonoBehaviour
 
     Vector3 GetNextOrbitedPoint(AsteroidOrbitInfo aoi, Vector3 currentPos) //This function needs some serious optimization, it's getting called incessantly.
     {
-        var linesList = new List<Tuple<Vector3, Vector3>>();
-        var pointsList = new List<Vector3>();
         Vector3 pointOnSegment = Vector3.Project(currentPos - aoi.segment.centerPoint, aoi.segment.mainSegment.dir) + aoi.segment.centerPoint;
-        pointsList.Add(pointOnSegment);
 
         Vector3 bottomPoint = aoi.segment.centerPoint;
-
+        float shear = 0;
         if (aoi.segment.useWedgeAngler)
         {
-            //linesList.Add(new Tuple<Vector3, Vector3>(aoi.segment.centerPoint, aoi.segment.centerPoint + aoi.segment.mainSegment.dir));
-            linesList.Add(new Tuple<Vector3, Vector3>(aoi.segment.centerPoint, aoi.segment.centerPoint + aoi.segment.mainSegment.dir * Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle) * aoi.radius));
-            pointsList.Add(aoi.segment.centerPoint + aoi.segment.mainSegment.dir * Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle) * aoi.radius);
-            bottomPoint += aoi.segment.mainSegment.dir * 
-                Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle)
+            shear = Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle)
                 * Mathf.Sin(
-                    Vector3.Angle(
-                        aoi.segment.wedgeAngler.wedgePlaneNormal,
-                        currentPos - pointOnSegment)
+                    (90 - Vector3.Angle(
+                        aoi.segment.wedgeAngler.wedgePerpFromMain,
+                        currentPos - pointOnSegment)) * (float)Math.PI / 180
                     )
                 * aoi.radius; //Fun math.
+
+
         }
-        //pointsList.Add(bottomPoint);
+
+        bottomPoint -= aoi.segment.mainSegment.dir * shear;
 
         float topPointDist = (pointOnSegment - aoi.segment.newPoint).magnitude;
         float bottomPointDist = (pointOnSegment - bottomPoint).magnitude;
@@ -151,16 +147,25 @@ public class ParticleTubeSpawner : MonoBehaviour
         //currentPos is copied into the function (because it's a struct), so using it here won't affect the calling function
         Vector3 ihat = (newPos - pointOnSegment).normalized;
         Vector3 jhat = Vector3.Cross(aoi.segment.mainSegment.dir, ihat);
-        newPos = GizmosUtil.PointOn3DCircle(pointOnSegment, ihat, jhat, aoi.radius, (aoi.direction.x * orbitSpeed) / aoi.radius);
+        float squeezeSpeedMultiplier = 1f;
+        if (aoi.segment.useWedgeAngler)
+        {
+            float maxDistanceDifference = Mathf.Tan(aoi.segment.wedgeAngler.wedgeAngle) * psm.outerRadius;
+            float segment = aoi.segment.mainSegment.length;
+            //float speedChange = Mathf.Lerp(aoi.segment.mainSegment.length - maxDistanceDifference, aoi.segment.mainSegment.length + maxDistanceDifference, shear /);
+            squeezeSpeedMultiplier = 1f + Mathf.Lerp(
+                (segment + maxDistanceDifference) / segment,
+                0f,
+                shear / maxDistanceDifference / 2f + 0.5f);
+        }
 
+        newPos = GizmosUtil.PointOn3DCircle(pointOnSegment, ihat, jhat, aoi.radius, (aoi.direction.x * orbitSpeed * squeezeSpeedMultiplier) / aoi.radius);
 
-        this.lines = linesList.ToArray();
-        this.points = pointsList.ToArray();
         return newPos;
     }
     private void OnDrawGizmos()
     {
-        float colorStep = 1.0f / (points.Length + lines.Length+1);
+        float colorStep = 1.0f / (points.Length + lines.Length + 1);
         int i = 0;
         foreach (var point in points)
         {
@@ -168,7 +173,7 @@ public class ParticleTubeSpawner : MonoBehaviour
             Gizmos.DrawSphere(point, 0.25f);
             i++;
         }
-        foreach(var line in lines)
+        foreach (var line in lines)
         {
             Gizmos.color = Color.HSVToRGB(colorStep * i, 1, 1);
             Gizmos.DrawLine(line.Item1, line.Item2);

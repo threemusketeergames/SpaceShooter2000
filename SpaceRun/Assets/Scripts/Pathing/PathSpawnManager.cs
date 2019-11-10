@@ -164,12 +164,14 @@ public class LineSegmentInfo
         rightVector = Vector3.Cross(dir, upVector);
         rightVector /= rightVector.magnitude;
         midpoint = (start + end) / 2f;
-        halfLength = seg.magnitude / 2;
+        length = seg.magnitude;
+        halfLength = length / 2f;
     }
     public Vector3 seg { get; set; }
     public Vector3 dir { get; set; }
     public Vector3 upVector { get; set; }
     public Vector3 rightVector { get; set; }
+    public float length { get; set; }
     public Vector3 midpoint { get; set; }
     public float halfLength { get; set; } //Used with midpoint to see if something is on the segment or not.
 }
@@ -188,9 +190,11 @@ public class WedgeAngler
             {
                 wedgePlaneNormal = wedgePlaneNormal,
                 wedgePerpFromLast = Vector3.Cross(wedgePlaneNormal, lastSegment),
+                wedgePerpFromMain = Vector3.Cross(wedgePlaneNormal, segment),
                 wedgeAngle = wedgeAngle
             };
             wedgeAngler.wedgePerpFromLast /= wedgeAngler.wedgePerpFromLast.magnitude;
+            wedgeAngler.wedgePerpFromMain /= wedgeAngler.wedgePerpFromMain.magnitude;
             return true;
         }
         else
@@ -202,6 +206,7 @@ public class WedgeAngler
     }
     public Vector3 wedgePlaneNormal { get; set; }
     public Vector3 wedgePerpFromLast { get; set; }
+    public Vector3 wedgePerpFromMain { get; set; }
     public float wedgeAngle { get; set; }
 }
 public class SpawnSegmentInfo

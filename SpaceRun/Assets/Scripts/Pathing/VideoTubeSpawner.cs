@@ -36,8 +36,7 @@ public class VideoTubeSpawner : MonoBehaviour
         if (ssi.useWedgeAngler)
         {
             firstihat = ssi.wedgeAngler.wedgePerpFromLast;
-            secondihat = Vector3.Cross(ssi.wedgeAngler.wedgePlaneNormal, ssi.mainSegment.seg);
-            secondihat.Normalize();
+            secondihat = ssi.wedgeAngler.wedgePerpFromMain;
             bothjhat = ssi.wedgeAngler.wedgePlaneNormal;
         }
         else
