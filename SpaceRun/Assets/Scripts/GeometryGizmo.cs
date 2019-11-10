@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -77,28 +78,32 @@ public static class GizmosUtil
 
     public static void DrawArc(Vector3 centerPoint, Vector3 ihat, Vector3 jhat, float radius, float startAngle, float stopAngle, float step = 0.1f)
     {
-        if (startAngle > stopAngle)
+        var points = PointsOn3DArc(centerPoint, ihat, jhat, radius, startAngle, stopAngle, step);
+        var last = points.First();
+        foreach(var point in points.Skip(1))
         {
-            float swap = stopAngle;
-            stopAngle = startAngle;
-            startAngle = swap;
+            Gizmos.DrawLine(last, point);
+            last = point;
         }
-        Vector3 point;
-        Vector3 startPoint = PointOn3DCircle(centerPoint, ihat, jhat, radius, startAngle); //Start at jhat, which points toward where angles start in the unit circle.
-        Vector3 lastPoint = startPoint;
-        for (float theta = startAngle + step; theta < stopAngle; theta += step)
-        {
-            point = PointOn3DCircle(centerPoint, ihat, jhat, radius, theta);
-            Gizmos.DrawLine(lastPoint, point);
-            lastPoint = point;
-        }
-        Gizmos.DrawLine(lastPoint, PointOn3DCircle(centerPoint, ihat, jhat, radius, stopAngle)); //Finish the arc;
     }
 
     public static Vector3 PointOn3DCircle(Vector3 centerPoint, Vector3 ihat, Vector3 jhat, float radius, float theta)
     {
         return centerPoint + ihat * radius * Mathf.Cos(theta) + jhat * radius * Mathf.Sin(theta); //Upon later revisitation, this stuff would've less confusing if I'd used matrices...
     }
-
+    public static IEnumerable<Vector3> PointsOn3DArc(Vector3 centerPoint, Vector3 ihat, Vector3 jhat, float radius, float startAngle, float stopAngle, float step = 0.1f)
+    {
+        if (startAngle > stopAngle)
+        {
+            float swap = stopAngle;
+            stopAngle = startAngle;
+            startAngle = swap;
+        }
+        for (float theta = startAngle; theta < stopAngle; theta += step)
+        {
+            yield return PointOn3DCircle(centerPoint, ihat, jhat, radius, theta);
+        }
+        yield return PointOn3DCircle(centerPoint, ihat, jhat, radius, stopAngle); //Finish the arc
+    }
 }
 

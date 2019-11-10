@@ -22,7 +22,7 @@ public class ArcFeature : PathFeature
 
         float radianStep = stepDist / radius;  //Radians
         float endRadians = 1.5f * Mathf.PI + arcRadians; //We start the circle at 270 degrees, or 1.5pi radians, aka the bottom of the circle.  This makes the arc start where it should.
-        for(float a = 1.5f*Mathf.PI; a <= endRadians; a+=radianStep)
+        for(float a = 1.5f*Mathf.PI+radianStep; a <= endRadians; a+=radianStep)
         {
             yield return arcCenter + startDirection * Mathf.Cos(a) * radius + turnVector * Mathf.Sin(a) * radius;
         }
