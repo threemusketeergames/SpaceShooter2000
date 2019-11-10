@@ -22,7 +22,6 @@ public class LightSpeed : MonoBehaviour
         LighSpeedActive = true;
         GroupToHide.SetActive(false);
         Stars.lengthScale = 3;
-        Ship.GetComponent<ShipMovement>().moveSpeed= 0.0f;
         StartCoroutine(LightSpeedSimilate());
 
     }
@@ -50,7 +49,6 @@ public class LightSpeed : MonoBehaviour
         LighSpeedActive = false;
         GroupToHide.SetActive(true);
         StartText.text = "Start";
-        Ship.GetComponent<ShipMovement>().moveSpeed = 4.0f;
         yield return new WaitForSeconds(1);
         StartText.text = "";
 

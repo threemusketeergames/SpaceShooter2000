@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     public Text highScore;
 
     public GameObject Player;
-    public Transform StartPosition;
 
     public Text scoreText;
     public Text restartText;
@@ -58,7 +57,7 @@ public class GameController : MonoBehaviour
         Canshoot = true;
         Health = StartHeath;
         LivesDisplay.text = "Lives:" + "X X";
-        Player.transform.position = StartPosition.transform.position;
+        //Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
         restartText.text = "";
