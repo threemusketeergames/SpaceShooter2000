@@ -6,7 +6,7 @@ public class ObjectSpawning : MonoBehaviour
 { 
     public GameObject[] hazards; //Options for hazards
     public int hazardCount; //How many per segment
-    public PathSpawnManager psm;
+    public PathSpawnManager psm; //pre defined for manager
 
     void Start()
     {
