@@ -179,7 +179,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: a9e00a5fb0babcc4d9742039bcca98dd, type: 3}
-    m_FontSize: 28
+    m_FontSize: 21
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -233,8 +233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 99.84, y: -103.31}
-  m_SizeDelta: {x: 339.93, y: 264.61}
+  m_AnchoredPosition: {x: 99.663, y: -77.6}
+  m_SizeDelta: {x: 339.33, y: 199.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &45530006
 MonoBehaviour:
@@ -308,7 +308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125.8, y: -137.7}
+  m_AnchoredPosition: {x: 125.79999, y: -82.3}
   m_SizeDelta: {x: 331.59, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300541388
@@ -944,7 +944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 137, y: -181.4}
+  m_AnchoredPosition: {x: 137, y: -126}
   m_SizeDelta: {x: 138.66, y: 38.47}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1118447433
@@ -6871,7 +6871,6 @@ MonoBehaviour:
   timeAlive: 0
   highScore: {fileID: 1034744790}
   Player: {fileID: 999344246}
-  StartPosition: {fileID: 884169319}
   scoreText: {fileID: 0}
   restartText: {fileID: 1118447433}
   gameOverText: {fileID: 1018459434}
@@ -7046,6 +7045,9 @@ MonoBehaviour:
   pathFeatures:
   - {fileID: 1904691135}
   gizmosColor: {r: 0, g: 0, b: 0, a: 0}
+  TestWaypoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 5}
 --- !u!114 &1904691137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7120,7 +7122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 74.4, y: -165.2}
+  m_AnchoredPosition: {x: 74.399994, y: -109.8}
   m_SizeDelta: {x: 400.6, y: 32.800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1995025958
