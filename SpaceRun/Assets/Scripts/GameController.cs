@@ -15,18 +15,17 @@ public class GameController : MonoBehaviour
     public float timeAliveDecimal;
     public int timeAlive;
     static int highscore = 0;
+    public int timebouns;
     public Text highScore;
 
     public GameObject Player;
 
-    public Text scoreText;
     public Text restartText;
     public Text gameOverText;
     public Text timerAliveText;
 
     private bool gameOver;
     private bool restart;
-    private int score;
 
     public int StartHeath;
     public int Health;
@@ -62,20 +61,23 @@ public class GameController : MonoBehaviour
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
-        score = 0;
-        UpdateScore();
         StartCoroutine(SpawnWaves());
 
         pathManager = GetComponent<PathManager>();
     }
 
+
     void Update()
     {
         if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive)
         {
-            timeAliveDecimal += Time.deltaTime;
-            timeAlive = Mathf.RoundToInt(timeAliveDecimal);
+            timeAliveDecimal += Time.unscaledDeltaTime; //not affected by game speeding up. 
+            timeAlive = Mathf.RoundToInt(timeAliveDecimal) -timebouns;
             timerAliveText.text = "Time Alive: " + timeAlive;
+        }
+        if(timeAliveDecimal > 5)
+        {
+            Time.timeScale = Time.unscaledDeltaTime * 50;
         }
 
         if (restart)
@@ -88,9 +90,9 @@ public class GameController : MonoBehaviour
     }
     public void PlayerHighScored()
     {
-        if (score > highscore)
+        if (timeAlive > highscore)
         {
-            highscore = score;
+            highscore = timeAlive;
             highScore.text = "High Score: " + highscore.ToString();
         }
     }
@@ -119,15 +121,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddScore(int newScoreValue)
+    public void SubtractTime(int newScoreValue)
     {
-        score += newScoreValue;
-        UpdateScore();
-    }
-
-    void UpdateScore()
-    {
-        scoreText.text = "Score: " + score;
+        timebouns += newScoreValue;
+        
     }
 
     public void GameOver()
