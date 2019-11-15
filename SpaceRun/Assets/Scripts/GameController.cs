@@ -32,7 +32,8 @@ public class GameController : MonoBehaviour
     public Text LivesDisplay;
     public bool Canshoot;
     public GameObject EngineParticle;
-
+    public float TimeScaleIndicator;
+    public bool TimeSpeedReady;
 
     public PathManager pathManager;
     private void Awake()
@@ -69,15 +70,17 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        TimeScaleIndicator = Time.timeScale;
         if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive)
         {
             timeAliveDecimal += Time.unscaledDeltaTime; //not affected by game speeding up. 
             timeAlive = Mathf.RoundToInt(timeAliveDecimal) -timebouns;
             timerAliveText.text = "Time Alive: " + timeAlive;
         }
-        if(timeAliveDecimal > 5)
+
+        if (timeAlive > 10)
         {
-            Time.timeScale = Time.unscaledDeltaTime * 50;
+            GameFaster();
         }
 
         if (restart)
@@ -161,6 +164,22 @@ public class GameController : MonoBehaviour
         Canshoot = true;
         EngineParticle.SetActive(true);
         Player.GetComponent<PickUpController>().OneLife = false;
+
+    }
+    public void GameFaster()
+    {
+        if(timeAlive % 5 == 0 && TimeSpeedReady)
+        {
+            TimeSpeedReady = false;
+            WaitSeconds(2);
+            TimeSpeedReady = true;
+        }
+        
+    }
+    IEnumerator WaitSeconds(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
 
     }
 }
