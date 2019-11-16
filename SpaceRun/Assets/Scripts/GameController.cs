@@ -78,9 +78,14 @@ public class GameController : MonoBehaviour
             timerAliveText.text = "Time Alive: " + timeAlive;
         }
 
-        if (timeAlive > 10)
+        if (timeAliveDecimal > 10 && timeAlive % 10 == 0 && TimeSpeedReady)
         {
-            GameFaster();
+                TimeSpeedReady = false;
+                Time.timeScale += 0.5f;
+                StartCoroutine(WaitSecondsTimeSpeed(3));
+        
+                
+            
         }
 
         if (restart)
@@ -127,7 +132,10 @@ public class GameController : MonoBehaviour
     public void SubtractTime(int newScoreValue)
     {
         timebouns += newScoreValue;
-        
+        timerAliveText.color = Color.red;
+        StartCoroutine(WaitForSecondsTimeColor(0.5f));
+
+
     }
 
     public void GameOver()
@@ -166,20 +174,17 @@ public class GameController : MonoBehaviour
         Player.GetComponent<PickUpController>().OneLife = false;
 
     }
-    public void GameFaster()
-    {
-        if(timeAlive % 5 == 0 && TimeSpeedReady)
-        {
-            TimeSpeedReady = false;
-            WaitSeconds(2);
-            TimeSpeedReady = true;
-        }
-        
-    }
-    IEnumerator WaitSeconds(int seconds)
+
+    IEnumerator WaitSecondsTimeSpeed(int seconds)
     {
         yield return new WaitForSeconds(seconds);
+        TimeSpeedReady = true;
 
+    }
+    IEnumerator WaitForSecondsTimeColor(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        timerAliveText.color = Color.white;
 
     }
 }
