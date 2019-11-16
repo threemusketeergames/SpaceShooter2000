@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30283258}
   - component: {fileID: 30283257}
+  - component: {fileID: 30283259}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -170,6 +171,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &30283259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30283256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7b5fa59c6658a4fa20c8a669a13433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Space: {fileID: 510956357}
+  Title: {fileID: 1564905533}
+  timeOfTravel: 3
+  currentTime: 0
+  DistanceToTravel: {x: -2000, y: 0, z: 0}
 --- !u!1 &201292552
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +472,7 @@ GameObject:
   - component: {fileID: 510956358}
   - component: {fileID: 510956360}
   - component: {fileID: 510956359}
+  - component: {fileID: 510956361}
   m_Layer: 5
   m_Name: Space
   m_TagString: Untagged
@@ -469,7 +488,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510956357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 744475605}
@@ -477,8 +496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1, y: -32.7}
-  m_SizeDelta: {x: 440.4, y: 65.4}
+  m_AnchoredPosition: {x: 13.099976, y: -20.700012}
+  m_SizeDelta: {x: 268.9, y: 141.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510956359
 MonoBehaviour:
@@ -518,6 +537,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510956357}
   m_CullTransparentMesh: 1
+--- !u!95 &510956361
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510956357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0818446aebaa52479aa9c261baabcfa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &632273726
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -513.9, y: -196.6}
+  m_AnchoredPosition: {x: -237.90015, y: -144.8387}
   m_SizeDelta: {x: 758.7, y: 656.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &632273728
@@ -1149,8 +1187,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 30283257}
-        m_MethodName: ChangeScenes
-        m_Mode: 5
+        m_MethodName: LoadMain
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1197,7 +1235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -522, y: -83.7}
+  m_AnchoredPosition: {x: -246, y: -31.93869}
   m_SizeDelta: {x: 450.2, y: 305.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1334804889

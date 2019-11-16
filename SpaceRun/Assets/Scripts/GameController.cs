@@ -83,11 +83,8 @@ public class GameController : MonoBehaviour
                 TimeSpeedReady = false;
                 Time.timeScale += 0.5f;
                 StartCoroutine(WaitSecondsTimeSpeed(3));
-        
-                
-            
+  
         }
-
         if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -185,6 +182,7 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         timerAliveText.color = Color.white;
+            
 
     }
 }

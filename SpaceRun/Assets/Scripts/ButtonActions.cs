@@ -13,8 +13,13 @@ public class ButtonActions : MonoBehaviour
 
     public void ChangeScenes(string SceneName)
     {
-        SceneManager.LoadScene(SceneName);
+          SceneManager.LoadScene(SceneName);
     }
+    public void LoadMain()
+    {
+        this.GetComponent<BeggingTransition>().StartMove();
+    }
+
     public void BackButtonClicked()
     {
         Instructionspanel.SetActive(false);
