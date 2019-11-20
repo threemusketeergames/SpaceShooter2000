@@ -11,6 +11,8 @@ public class EvasiveManeuver : MonoBehaviour
 	public Vector2 maneuverTime;
 	public Vector2 maneuverWait;
 
+    public GameObject PlayerShip;
+
 	private float currentSpeed;
 	private float targetManeuver;
 
@@ -18,7 +20,9 @@ public class EvasiveManeuver : MonoBehaviour
 	{
 		currentSpeed = GetComponent<Rigidbody>().velocity.z;
 		StartCoroutine(Evade());
-	}
+        PlayerShip = GameObject.FindGameObjectWithTag("Player");
+
+    }
 	
 	IEnumerator Evade ()
 	{
@@ -44,5 +48,9 @@ public class EvasiveManeuver : MonoBehaviour
 		//);
 		
 		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, 0, GetComponent<Rigidbody>().velocity.x * -tilt);
+
+        this.transform.LookAt(PlayerShip.transform);
+        this.transform.Rotate(0, -180 , 0);
+
 	}
 }

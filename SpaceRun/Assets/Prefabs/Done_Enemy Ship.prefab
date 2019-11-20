@@ -4860,8 +4860,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shot: {fileID: 100000, guid: 11e27c26ac87b40f0a62ec40d7261989, type: 3}
   shotSpawn: {fileID: 5331783164062654966}
-  fireRate: 1.5
-  delay: 0.5
+  fireRate: 3
+  delay: 1
+  Gamecontroller: {fileID: 0}
 --- !u!114 &5331783163938271496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4992,6 +4993,7 @@ MonoBehaviour:
   startWait: {x: 0.5, y: 1}
   maneuverTime: {x: 1, y: 2}
   maneuverWait: {x: 1, y: 2}
+  PlayerShip: {fileID: 0}
 --- !u!1 &5331783164062654967
 GameObject:
   m_ObjectHideFlags: 0

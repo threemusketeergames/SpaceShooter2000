@@ -1904,7 +1904,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 500
     size3D: 1
     rotation3D: 0
     gravityModifier:
@@ -11673,6 +11673,7 @@ GameObject:
   - component: {fileID: 1904691137}
   - component: {fileID: 1904691139}
   - component: {fileID: 1904691140}
+  - component: {fileID: 1904691141}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameController
@@ -11869,7 +11870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumWaypoints: 3
+  NumWaypoints: 10
   StepDist: 15
   pathFeatures:
   - {fileID: 1904691135}
@@ -11901,7 +11902,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904691130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e4d6a3985ac868449fd3221b56b8067, type: 3}
   m_Name: 
@@ -11923,7 +11924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleTube: {fileID: 1368388897}
   density: 0.1
-  maxParticlesPerSegment: 200
+  maxParticlesPerSegment: 50
   orbitSpeed: 0.08
   MaxMovement: {x: 1, y: 0.75}
 --- !u!328 &1904691140
@@ -11934,7 +11935,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904691130}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 06c5b9daa57c02f4ca5feea8c9eba2f3, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0b558d00670564d4ab866324ec2fb1c9, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -11960,6 +11961,23 @@ VideoPlayer:
   m_Looping: 1
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
+--- !u!114 &1904691141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f72c2f6c24d7d040b63fe712e627e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hazards:
+  - {fileID: 5331783163938271499, guid: afc18fc39ade3744397c0c993b57be53, type: 3}
+  - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
+  hazardCount: 1
+  psm: {fileID: 0}
 --- !u!1 &1920426293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7,
@@ -12207,15 +12225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: moveSpeed
-      value: 14
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: rotatespeed
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
