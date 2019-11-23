@@ -137,9 +137,9 @@ public class GameController : MonoBehaviour
         gameOver = true;
         PlayerHighScored();
     }
-    public bool TakeHealth()
+    public bool TakeHealth(int amount)
     {
-        Health -= 50;
+        Health -= amount;
         if (Health <= 0)
         {
             //lost our second life

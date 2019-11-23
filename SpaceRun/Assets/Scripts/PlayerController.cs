@@ -13,11 +13,18 @@ public class PlayerController : MonoBehaviour
     public GameObject Buckshotbullet;
     public bool buckshoton;
     public float fireRate;
+    public bool PlayerInBounds;
+
 
     private float nextFire;
     public GameObject gamecontrollerscript;
+    private ParticleCollisionEvent[] collisionEvents = new ParticleCollisionEvent[16];
 
-   
+    private void Start()
+    {
+        PlayerInBounds = true;
+        
+    }
 
     void Update()
     {
@@ -41,9 +48,10 @@ public class PlayerController : MonoBehaviour
                     GetComponent<AudioSource>().Play();
                 }
             }
-           
-          
+
+
         }
+        
     }
     public void StartBuckshot()
     {
@@ -59,17 +67,29 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider Other)
     {
-
-        if (other.tag == "Bullet")
+        if (Other.gameObject.name == "Tube")
         {
-            Destroy(other.gameObject);
-            gamecontrollerscript.GetComponent<GameController>().TakeHealth();
-
+            PlayerInBounds = true;
         }
     }
 
+    void OnTriggerExit(Collider Other)
+    {
+        if (Other.gameObject.tag == "Tube")
+        {
+            PlayerInBounds = false;
+            gamecontrollerscript.GetComponent<GameController>().TakeHealth(100);
+        }
+    }
+    void OnTriggerEnter(Collider Other)
+    {
+        if (Other.gameObject.tag == "Tube")
+        {
+            PlayerInBounds = true;
+        }
+    }
 
 
     void FixedUpdate()

@@ -1268,7 +1268,7 @@ GameObject:
   - component: {fileID: 1368388899}
   m_Layer: 0
   m_Name: Particle System
-  m_TagString: Untagged
+  m_TagString: AsteroidParticles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -4858,9 +4858,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -5040,7 +5040,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -11924,9 +11924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleTube: {fileID: 1368388897}
   density: 0.1
-  maxParticlesPerSegment: 50
+  maxParticlesPerSegment: 20
   orbitSpeed: 0.08
   MaxMovement: {x: 1, y: 0.75}
+  Player: {fileID: 0}
 --- !u!328 &1904691140
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -12225,11 +12226,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: moveSpeed
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: rotatespeed
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_Enabled

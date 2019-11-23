@@ -22,6 +22,7 @@ public class ParticleTubeSpawner : MonoBehaviour
     Queue<SpawnSegmentInfo> newSegments;
     ParticleSystem.Particle[] particles;
     AsteroidOrbitInfo[] orbits;
+    public GameObject Player;
 
     Tuple<Vector3, Vector3>[] lines = new Tuple<Vector3, Vector3>[0];
     Vector3[] points = new Vector3[0];
@@ -40,6 +41,7 @@ public class ParticleTubeSpawner : MonoBehaviour
         tubeParticleSystem.Emit(maxParticles);
         tubeParticleSystem.Play();
     }
+
 
     private void LateUpdate()
     {
@@ -91,6 +93,8 @@ public class ParticleTubeSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+       
+
         tubeParticleSystem.GetParticles(particles, particles.Length);
         for (int i = 0; i < orbits.Length; i++)
         {
@@ -101,6 +105,7 @@ public class ParticleTubeSpawner : MonoBehaviour
         }
 
         tubeParticleSystem.SetParticles(particles, particles.Length);
+        
     }
 
     Vector3 GetNextOrbitedPoint(AsteroidOrbitInfo aoi, Vector3 currentPos) //This function needs some serious optimization, it's getting called incessantly.

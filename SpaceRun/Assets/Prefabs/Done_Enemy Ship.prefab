@@ -4793,6 +4793,7 @@ GameObject:
   - component: {fileID: 5331783163938271496}
   - component: {fileID: 5331783163938271497}
   - component: {fileID: 5331783163938271498}
+  - component: {fileID: 4188173399898938158}
   m_Layer: 0
   m_Name: Done_Enemy Ship
   m_TagString: Enemy
@@ -4987,13 +4988,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83f547a0b5e164458fdd28addd02ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilt: 10
-  dodge: 5
-  smoothing: 7.5
+  tilt: 5
+  dodge: 2
+  smoothing: 3
   startWait: {x: 0.5, y: 1}
-  maneuverTime: {x: 1, y: 2}
-  maneuverWait: {x: 1, y: 2}
+  maneuverTime: {x: 0.5, y: 1}
+  maneuverWait: {x: 0.5, y: 1}
   PlayerShip: {fileID: 0}
+--- !u!114 &4188173399898938158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331783163938271499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f64144bf82dd745829b52225b8ef70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 10
 --- !u!1 &5331783164062654967
 GameObject:
   m_ObjectHideFlags: 0

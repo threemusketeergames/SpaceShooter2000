@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - bolt
   - Bullet
+  - AsteroidParticles
+  - Tube
   layers:
   - Default
   - TransparentFX
