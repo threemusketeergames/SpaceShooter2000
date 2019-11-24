@@ -77,10 +77,19 @@ public class VideoTubeSpawner : MonoBehaviour
 
         mesh.RecalculateNormals();
         newTube.GetComponent<MeshFilter>().mesh = mesh;
+        newTube.gameObject.AddComponent(typeof(MeshCollider));
+        newTube.GetComponent<MeshCollider>().convex = true;
+        //newTube.GetComponent<MeshCollider>().isTrigger = true;
+
         TubeObjects.Enqueue(newTube);
         #endregion
-
     }
+    //this.gameobject
+    //.getcomponet transfome 
+    //    segment length
+    //    outer radius   
+
+
     void DespawnLastWaypoint()
     {
         Destroy(TubeObjects.Dequeue());

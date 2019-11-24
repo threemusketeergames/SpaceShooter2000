@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         PlayerInBounds = true;
-        
+       // Physics.IgnoreLayerCollision(0, 8);
     }
 
     void Update()
@@ -69,8 +69,9 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerStay(Collider Other)
     {
-        if (Other.gameObject.name == "Tube")
+        if (Other.gameObject.tag == "Tube")
         {
+           // Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
             PlayerInBounds = true;
         }
     }
@@ -79,15 +80,25 @@ public class PlayerController : MonoBehaviour
     {
         if (Other.gameObject.tag == "Tube")
         {
+           // Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
             PlayerInBounds = false;
-            gamecontrollerscript.GetComponent<GameController>().TakeHealth(100);
+            StartCoroutine(Determinbounds());
         }
     }
     void OnTriggerEnter(Collider Other)
     {
         if (Other.gameObject.tag == "Tube")
         {
+            //Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
             PlayerInBounds = true;
+        }
+    }
+    IEnumerator Determinbounds()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (!PlayerInBounds)
+        {
+            gamecontrollerscript.GetComponent<GameController>().TakeHealth(100);
         }
     }
 

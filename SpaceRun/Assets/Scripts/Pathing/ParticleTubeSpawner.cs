@@ -101,6 +101,10 @@ public class ParticleTubeSpawner : MonoBehaviour
             if (orbits[i] != null)  //Has this asteroid slot actually been filled with an asteroid? When we're first initializing the game it won't necessarily be
             {
                 particles[i].position = GetNextOrbitedPoint(orbits[i], particles[i].position);
+                if(Math.Abs(particles[i].position.x - Player.transform.position.x) < 1 && Math.Abs(particles[i].position.y - Player.transform.position.y) < 1 && Math.Abs(particles[i].position.z - Player.transform.position.z) < 1)
+                {
+                    this.GetComponent<GameController>().TakeHealth(50);
+                }
             }
         }
 
