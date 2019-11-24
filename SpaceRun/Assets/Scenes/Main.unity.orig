@@ -280,9 +280,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300541386}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
---- !u!1 &330698626
-=======
 --- !u!1 &182599690
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +408,6 @@ Transform:
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300541386
->>>>>>> Integrating_All_Music_Possible
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -483,6 +479,10 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Score Text
 --- !u!222 &330698629
+  m_Text: 'X X
+
+'
+--- !u!222 &300541389
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -615,12 +615,16 @@ RectTransform:
   m_Children:
   - {fileID: 330698627}
   - {fileID: 1118447432}
+  - {fileID: 1349121645}
   - {fileID: 1018459433}
+  - {fileID: 2040203714}
   - {fileID: 14979409}
   - {fileID: 1349121645}
   - {fileID: 1034744789}
   - {fileID: 2040203714}
   - {fileID: 300541387}
+  - {fileID: 45530005}
+  - {fileID: 1995025957}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12218,7 +12222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 0
+=======
+      value: -4.689
+>>>>>>> MergingFIxUI
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12226,7 +12234,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< HEAD
       value: 1.487
+=======
+      value: -34.499
+>>>>>>> MergingFIxUI
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalRotation.x
