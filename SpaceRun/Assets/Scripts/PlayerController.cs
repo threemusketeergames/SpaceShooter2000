@@ -13,11 +13,18 @@ public class PlayerController : MonoBehaviour
     public GameObject Buckshotbullet;
     public bool buckshoton;
     public float fireRate;
+    public bool PlayerInBounds;
+
 
     private float nextFire;
     public GameObject gamecontrollerscript;
+    private ParticleCollisionEvent[] collisionEvents = new ParticleCollisionEvent[16];
 
-   
+    private void Start()
+    {
+        PlayerInBounds = true;
+       // Physics.IgnoreLayerCollision(0, 8);
+    }
 
     void Update()
     {
@@ -41,9 +48,10 @@ public class PlayerController : MonoBehaviour
                     GetComponent<AudioSource>().Play();
                 }
             }
-           
-          
+
+
         }
+        
     }
     public void StartBuckshot()
     {
@@ -59,17 +67,40 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider Other)
     {
-
-        if (other.tag == "Bullet")
+        if (Other.gameObject.tag == "Tube")
         {
-            Destroy(other.gameObject);
-            gamecontrollerscript.GetComponent<GameController>().TakeHealth();
-
+           // Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
+            PlayerInBounds = true;
         }
     }
 
+    void OnTriggerExit(Collider Other)
+    {
+        if (Other.gameObject.tag == "Tube")
+        {
+           // Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
+            PlayerInBounds = false;
+            StartCoroutine(Determinbounds());
+        }
+    }
+    void OnTriggerEnter(Collider Other)
+    {
+        if (Other.gameObject.tag == "Tube")
+        {
+            //Physics.IgnoreCollision(this.GetComponent<Collider>(), Other);
+            PlayerInBounds = true;
+        }
+    }
+    IEnumerator Determinbounds()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (!PlayerInBounds)
+        {
+            gamecontrollerscript.GetComponent<GameController>().TakeHealth(100);
+        }
+    }
 
 
     void FixedUpdate()

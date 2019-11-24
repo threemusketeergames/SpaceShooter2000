@@ -22,6 +22,7 @@ public class ParticleTubeSpawner : MonoBehaviour
     Queue<SpawnSegmentInfo> newSegments;
     ParticleSystem.Particle[] particles;
     AsteroidOrbitInfo[] orbits;
+    public GameObject Player;
 
     Tuple<Vector3, Vector3>[] lines = new Tuple<Vector3, Vector3>[0];
     Vector3[] points = new Vector3[0];
@@ -40,6 +41,7 @@ public class ParticleTubeSpawner : MonoBehaviour
         tubeParticleSystem.Emit(maxParticles);
         tubeParticleSystem.Play();
     }
+
 
     private void LateUpdate()
     {
@@ -91,16 +93,23 @@ public class ParticleTubeSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+       
+
         tubeParticleSystem.GetParticles(particles, particles.Length);
         for (int i = 0; i < orbits.Length; i++)
         {
             if (orbits[i] != null)  //Has this asteroid slot actually been filled with an asteroid? When we're first initializing the game it won't necessarily be
             {
                 particles[i].position = GetNextOrbitedPoint(orbits[i], particles[i].position);
+                if(Math.Abs(particles[i].position.x - Player.transform.position.x) < 1 && Math.Abs(particles[i].position.y - Player.transform.position.y) < 1 && Math.Abs(particles[i].position.z - Player.transform.position.z) < 1)
+                {
+                    this.GetComponent<GameController>().TakeHealth(50);
+                }
             }
         }
 
         tubeParticleSystem.SetParticles(particles, particles.Length);
+        
     }
 
     Vector3 GetNextOrbitedPoint(AsteroidOrbitInfo aoi, Vector3 currentPos) //This function needs some serious optimization, it's getting called incessantly.

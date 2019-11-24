@@ -45,7 +45,7 @@ public class DestroyByContact : MonoBehaviour
         if (other.tag == "Player")
 		{
             //demote the health in gamecontroller
-            if (gameController.TakeHealth())
+            if (gameController.TakeHealth(50))
             {
                 //remove parent before destroying ship
                 Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;

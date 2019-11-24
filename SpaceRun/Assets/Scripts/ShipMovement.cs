@@ -28,6 +28,8 @@ public class ShipMovement : MonoBehaviour
 
             //Constant moving foward
             rb.velocity = transform.forward * moveSpeed;
+
+
         }
         else
         {

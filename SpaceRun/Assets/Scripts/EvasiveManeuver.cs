@@ -11,16 +11,23 @@ public class EvasiveManeuver : MonoBehaviour
 	public Vector2 maneuverTime;
 	public Vector2 maneuverWait;
 
+    public GameObject PlayerShip;
+
 	private float currentSpeed;
 	private float targetManeuver;
+
+    public GameObject Gamecontroller;
 
 	void Start ()
 	{
 		currentSpeed = GetComponent<Rigidbody>().velocity.z;
 		StartCoroutine(Evade());
-	}
-	
-	IEnumerator Evade ()
+        PlayerShip = GameObject.FindGameObjectWithTag("Player");
+        Gamecontroller = GameObject.FindGameObjectWithTag("GameController");
+
+    }
+
+    IEnumerator Evade ()
 	{
 		yield return new WaitForSeconds (Random.Range (startWait.x, startWait.y));
 		while (true)
@@ -34,15 +41,22 @@ public class EvasiveManeuver : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-		float newManeuver = Mathf.MoveTowards (GetComponent<Rigidbody>().velocity.x, targetManeuver, smoothing * Time.deltaTime);
-		GetComponent<Rigidbody>().velocity = new Vector3 (newManeuver, 0.0f, currentSpeed);
-		//GetComponent<Rigidbody>().position = new Vector3
-		//(
-		//	Mathf.Clamp(GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
-		//	0.0f, 
-		//	Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
-		//);
-		
-		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, 0, GetComponent<Rigidbody>().velocity.x * -tilt);
-	}
+        if (!Gamecontroller.GetComponent<LightSpeed>().LighSpeedActive)
+        {
+            float newManeuver = Mathf.MoveTowards(GetComponent<Rigidbody>().velocity.x, targetManeuver, smoothing * Time.deltaTime);
+            GetComponent<Rigidbody>().velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
+            //GetComponent<Rigidbody>().position = new Vector3
+            //(
+            //	Mathf.Clamp(GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
+            //	0.0f, 
+            //	Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
+            //);
+
+            GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, 0, GetComponent<Rigidbody>().velocity.x * -tilt);
+
+            this.transform.LookAt(PlayerShip.transform);
+            this.transform.Rotate(0, -180, 0);
+
+        }
+    }
 }

@@ -109,10 +109,11 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < hazardCount; i++)
             {
                 GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                //ahead of the player
+                // Spawin where??? ...rn..ahead of the player
                 Vector3 spawnPosition = new Vector3(Player.transform.position.x, Player.transform.position.y, (Player.transform.position.z + DistanceFromPlayer));
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
+                //
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
@@ -141,9 +142,9 @@ public class GameController : MonoBehaviour
         gameOver = true;
         PlayerHighScored();
     }
-    public bool TakeHealth()
+    public bool TakeHealth(int amount)
     {
-        Health -= 50;
+        Health -= amount;
         if (Health <= 0)
         {
             //lost our second life

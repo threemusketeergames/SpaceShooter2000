@@ -7,15 +7,20 @@ public class WeaponController : MonoBehaviour
 	public Transform shotSpawn;
 	public float fireRate;
 	public float delay;
-
+    public GameObject Gamecontroller;
 	void Start ()
 	{
-		InvokeRepeating ("Fire", delay, fireRate);
+        Gamecontroller = GameObject.FindGameObjectWithTag("GameController");
+        InvokeRepeating ("Fire", delay, fireRate);
 	}
 
 	void Fire ()
 	{
-		Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-		GetComponent<AudioSource>().Play();
+        if (!Gamecontroller.GetComponent<LightSpeed>().LighSpeedActive)
+        {
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            GetComponent<AudioSource>().Play();
+        }
+
 	}
 }
