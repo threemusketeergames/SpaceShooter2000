@@ -12225,7 +12225,7 @@ PrefabInstance:
 <<<<<<< HEAD
       value: 0
 =======
-      value: -4.689
+      value: -4.361
 >>>>>>> MergingFIxUI
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
@@ -12237,7 +12237,7 @@ PrefabInstance:
 <<<<<<< HEAD
       value: 1.487
 =======
-      value: -34.499
+      value: -34.501
 >>>>>>> MergingFIxUI
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
