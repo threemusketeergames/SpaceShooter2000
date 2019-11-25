@@ -989,31 +989,35 @@ MonoBehaviour:
     To Shoot Click mouse or press ctrl.
 
 
-    To pick up powerups fly into them.
-
-    - There are many different randomized ones.
-
-    To score points, kill asteroids or ships.
-
-
     Lives:
 
     - Two lifes
 
     - After you loose one you cannot shoot.
 
-    - You can regain a life from a powerup.
+    -Crashing into objects will take lives away
+
+    -Crashing into the tube will instantly kill you.
+
 
 
     Objective
 
-    -Survive for the longest time.
+    1)Survive for the longest possible time
 
-    The Game will get faster as you go on.
+    -Shotting asteroids and ships will increase your time
 
-    -Shooting obstacles infront of you like asteroids
 
-    and enemy ships will take seconds off your time.
+
+    Press R to restart
+
+    Speed and number of obstacles will increase as time goes on.
+
+    You will travel through light speed to get to your destination
+
+    Good Luck!
+
+
 
 '
 --- !u!222 &1021896511

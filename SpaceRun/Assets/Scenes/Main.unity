@@ -154,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93.90997, y: -26}
-  m_SizeDelta: {x: 212.78, y: 50.12}
+  m_AnchoredPosition: {x: 111.43, y: -25.27}
+  m_SizeDelta: {x: 254.04, y: 48.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &14979410
 MonoBehaviour:
@@ -233,8 +233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 99.84, y: -103.31}
-  m_SizeDelta: {x: 339.93, y: 264.61}
+  m_AnchoredPosition: {x: 109.14, y: -103.61}
+  m_SizeDelta: {x: 371.3, y: 265.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &45530006
 MonoBehaviour:
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 685042098}
   - component: {fileID: 685042097}
   - component: {fileID: 685042096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: AsteroidParticles
   m_Icon: {fileID: 0}
@@ -6583,7 +6583,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 10000
+    maxNumParticles: 13380
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -11216,7 +11216,7 @@ PrefabInstance:
     - target: {fileID: 6655509531332334374, guid: f300c3fb3d6620e44977cb2907e07245,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6655509531332334375, guid: f300c3fb3d6620e44977cb2907e07245,
         type: 3}
@@ -11686,6 +11686,7 @@ GameObject:
   - component: {fileID: 1904691141}
   - component: {fileID: 1904691140}
   - component: {fileID: 1904691139}
+  - component: {fileID: 1904691142}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameController
@@ -11731,6 +11732,7 @@ MonoBehaviour:
   TimeScaleIndicator: 0
   TimeSpeedReady: 0
   pathManager: {fileID: 0}
+  playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
 --- !u!4 &1904691132
 Transform:
   m_ObjectHideFlags: 0
@@ -11755,7 +11757,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7b04c59dd84f14039b601e1abbe7b884, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2fd365eaa21281345a5207f8940fd7a3, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -11890,7 +11892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea128893a1707349b4f646561ef6796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumWaypoints: 15
+  NumWaypoints: 20
   StepDist: 5
   pathFeatures:
   - {fileID: 1904691135}
@@ -11914,7 +11916,6 @@ MonoBehaviour:
   Ship: {fileID: 999344246}
   StartText: {fileID: 2040203715}
   LighSpeedActive: 0
-  GroupToHide: {fileID: 1019284186}
 --- !u!114 &1904691138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11945,7 +11946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleTube: {fileID: 685042095}
   density: 0.01
-  maxParticlesPerSegment: 200
+  maxParticlesPerSegment: 3
   orbitSpeed: 0.1
   MaxMovement: {x: 1, y: 0.75}
   Player: {fileID: 999344246}
@@ -11981,6 +11982,24 @@ MonoBehaviour:
   enableTubeGizmo: 1
   numCornerBands: 10
   numTubeLines: 8
+--- !u!114 &1904691142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904691130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f72c2f6c24d7d040b63fe712e627e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hazards:
+  - {fileID: 5331783163938271499, guid: afc18fc39ade3744397c0c993b57be53, type: 3}
+  - {fileID: 100002, guid: 834bfaee90a9d4e04b1e8c1ca22cc88e, type: 3}
+  - {fileID: 100002, guid: 9143e2b62ad50488482f9b73672fc331, type: 3}
+  hazardCount: 1
+  psm: {fileID: 0}
 --- !u!1 &1920426293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 738bdf56857a65f479c367c7b62c4ad7,
@@ -12298,6 +12317,10 @@ PrefabInstance:
       propertyPath: PowerupDisplay
       value: 
       objectReference: {fileID: 1853167716}
+    - target: {fileID: 999344247, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.59

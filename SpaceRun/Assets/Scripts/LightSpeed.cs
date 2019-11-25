@@ -11,16 +11,12 @@ public class LightSpeed : MonoBehaviour
     public Text StartText;
     public bool LighSpeedActive;
 
-    //things to hide during light speed so that it looks real.
-    //Put the parent object here to hide envoirement that is seen during light speed.
-    public GameObject GroupToHide;
-
-
     public void Start()
     {
         StartText.text = "";
         LighSpeedActive = true;
-        GroupToHide.SetActive(false);
+        Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Tube"));
+
         Stars.lengthScale = 3;
         StartCoroutine(LightSpeedSimilate());
 
@@ -45,9 +41,10 @@ public class LightSpeed : MonoBehaviour
             stopelapsed += Time.deltaTime;
             yield return null;
         }
+        Camera.main.cullingMask = -1;
+        yield return new WaitForSeconds(1);
         Stars.lengthScale = -3f;
         LighSpeedActive = false;
-        GroupToHide.SetActive(true);
         StartText.text = "Start";
         yield return new WaitForSeconds(1);
         StartText.text = "";

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5331783162801850578}
   - component: {fileID: 5331783162801850576}
   - component: {fileID: 5331783162801850577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Engines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4710,7 +4710,7 @@ GameObject:
   - component: {fileID: 5331783163494548814}
   - component: {fileID: 5331783163494548812}
   - component: {fileID: 5331783163494548813}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: vehicle_enemyShip
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4794,7 +4794,7 @@ GameObject:
   - component: {fileID: 5331783163938271497}
   - component: {fileID: 5331783163938271498}
   - component: {fileID: 4188173399898938158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Done_Enemy Ship
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
-  scoreValue: 3
+  scoreValue: 2
   Camera: {fileID: 0}
 --- !u!82 &5331783163938271497
 AudioSource:
@@ -4891,7 +4891,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1be4472894949437694aead55c6da60f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
@@ -4995,6 +4995,7 @@ MonoBehaviour:
   maneuverTime: {x: 0.5, y: 1}
   maneuverWait: {x: 0.5, y: 1}
   PlayerShip: {fileID: 0}
+  Gamecontroller: {fileID: 0}
 --- !u!114 &4188173399898938158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5017,7 +5018,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5331783164062654966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shot Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

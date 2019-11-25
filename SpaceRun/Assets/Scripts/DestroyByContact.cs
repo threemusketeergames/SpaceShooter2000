@@ -50,6 +50,7 @@ public class DestroyByContact : MonoBehaviour
                 //remove parent before destroying ship
                 Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
                 Camera.parent = null;
+                Instantiate(explosion, transform.position, transform.rotation);
                 Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
                 Destroy(other.gameObject);
                 Destroy(gameObject);
@@ -67,7 +68,7 @@ public class DestroyByContact : MonoBehaviour
 	}
     IEnumerator TimeStop()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         Time.timeScale = 0.0f;
 
     }

@@ -35,7 +35,11 @@ public class GameController : MonoBehaviour
     public float TimeScaleIndicator;
     public bool TimeSpeedReady;
 
+
     public PathManager pathManager;
+    public GameObject playerExplosion;
+    private Transform Camera;
+
     private void Awake()
     {
         highScore.text = "High Score: " + highscore.ToString();
@@ -63,7 +67,7 @@ public class GameController : MonoBehaviour
         restartText.text = "";
         gameOverText.text = "";
         StartCoroutine(SpawnWaves());
-
+        TimeSpeedReady = true;
         pathManager = GetComponent<PathManager>();
     }
 
@@ -71,17 +75,18 @@ public class GameController : MonoBehaviour
     void Update()
     {
         TimeScaleIndicator = Time.timeScale;
-        if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive)
+        if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive && !gameOver)
         {
             timeAliveDecimal += Time.unscaledDeltaTime; //not affected by game speeding up. 
-            timeAlive = Mathf.RoundToInt(timeAliveDecimal) -timebouns;
+            timeAlive = Mathf.RoundToInt(timeAliveDecimal) + timebouns;
             timerAliveText.text = "Time Alive: " + timeAlive;
         }
 
-        if (timeAliveDecimal > 10 && timeAlive % 10 == 0 && TimeSpeedReady)
+        if (timeAliveDecimal > 20 && timeAlive % 10 == 0 && TimeSpeedReady)
         {
                 TimeSpeedReady = false;
-                Time.timeScale += 0.5f;
+                Time.timeScale += 0.25f;
+                this.GetComponent<ObjectSpawning>().hazardCount =+ 1;
                 StartCoroutine(WaitSecondsTimeSpeed(3));
   
         }
@@ -130,7 +135,7 @@ public class GameController : MonoBehaviour
     public void SubtractTime(int newScoreValue)
     {
         timebouns += newScoreValue;
-        timerAliveText.color = Color.red;
+        timerAliveText.color = Color.green;
         StartCoroutine(WaitForSecondsTimeColor(0.5f));
 
 
@@ -139,6 +144,10 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         gameOverText.text = "Game Over!";
+        Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        Instantiate(playerExplosion, Player.transform.position, Player.transform.rotation);
+        Camera.parent = null;
+        Destroy(Player);
         gameOver = true;
         PlayerHighScored();
     }

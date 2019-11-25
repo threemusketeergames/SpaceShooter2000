@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3887183425183091674}
   - component: {fileID: 3887183425183091665}
   - component: {fileID: 3887183425183091678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ship: {fileID: 0}
+  Audio: {fileID: 0}
 --- !u!54 &3887183425183091665
 Rigidbody:
   m_ObjectHideFlags: 0

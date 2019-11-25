@@ -6,10 +6,14 @@ public class PickUpObject : MonoBehaviour
 {
     public GameObject Ship;
     public AudioSource Audio;
+    
+
 
     void OnTriggerEnter(Collider other)
     {
+
         Ship = GameObject.FindGameObjectWithTag("Player");
+
 
         if (other.tag == "Player")
         {

@@ -14,6 +14,9 @@ public class PickUpController : MonoBehaviour
     public Text PowerupDisplay;
     public bool OneLife;
     public int PowerupLastTime;
+    public GameObject PickUpAudio;
+    public GameObject LifeGainedAudio;
+
 
     //public Transform CircularProgressBarSpawn;
 
@@ -92,6 +95,7 @@ public class PickUpController : MonoBehaviour
     public void PowerUpColor()
     {
         //Add to the color then set again
+        PickUpAudio.GetComponent<AudioSource>().Play();
         CurrentColor.g += 2.0f;
         rend.material.color = CurrentColor;
         //Slow time down
@@ -110,6 +114,7 @@ public class PickUpController : MonoBehaviour
 
     public void PowerUpForcefield()
     {
+        PickUpAudio.GetComponent<AudioSource>().Play();
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
         //undestroyable
@@ -125,12 +130,14 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-      this.GetComponent<PlayerController>().StartBuckshot();
+        PickUpAudio.GetComponent<AudioSource>().Play();
+        this.GetComponent<PlayerController>().StartBuckshot();
       PowerupDisplay.text = "Power Up:\n Buckshot";
 
     }
     public void PowerUpGainLife()
     {
+        LifeGainedAudio.GetComponent<AudioSource>().Play();
         //gain life
         this.GetComponent<PlayerController>().gamecontrollerscript.GetComponent<GameController>().AddHealth();
         Ready = true;
