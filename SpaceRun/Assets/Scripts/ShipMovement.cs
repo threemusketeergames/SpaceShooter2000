@@ -30,6 +30,7 @@ public class ShipMovement : MonoBehaviour
             rb.velocity = transform.forward * moveSpeed;
 
 
+
         }
         else
         {
