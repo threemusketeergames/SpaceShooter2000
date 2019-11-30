@@ -986,14 +986,14 @@ MonoBehaviour:
     m_LineSpacing: 1.19
   m_Text: 'Movement: Use WASD or arrow keys.
 
-    To Shoot Click mouse or press ctrl.
+    To Shoot Click mouse or press SHIFT.
 
 
     Lives:
 
-    - Two lifes
+    - Two lives
 
-    - After you loose one you cannot shoot.
+    - After you lose one you cannot shoot.
 
     -Crashing into objects will take lives away
 
@@ -1005,7 +1005,7 @@ MonoBehaviour:
 
     1)Survive for the longest possible time
 
-    -Shotting asteroids and ships will increase your time
+    -Shooting asteroids and ships will increase your time
 
 
 

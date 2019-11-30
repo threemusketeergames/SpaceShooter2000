@@ -10,6 +10,9 @@ public class LightSpeed : MonoBehaviour
     public GameObject Ship;
     public Text StartText;
     public bool LighSpeedActive;
+    public int duration;
+    public int StopDuration;
+    public int WaitBeforeStart;
 
     public void Start()
     {
@@ -25,7 +28,6 @@ public class LightSpeed : MonoBehaviour
     IEnumerator LightSpeedSimilate()
     {
         float elapsed = 0;
-        float duration = 4;
         while (elapsed < duration)
         {
             Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -500, elapsed / duration);
@@ -34,15 +36,14 @@ public class LightSpeed : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
         float stopelapsed= 0;
-        float stopduration = 3;
-        while (stopelapsed < stopduration)
+        while (stopelapsed < StopDuration)
         {
-            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -3, stopelapsed / stopduration);
+            Stars.lengthScale = Mathf.Lerp(Stars.lengthScale, -3, stopelapsed / StopDuration);
             stopelapsed += Time.deltaTime;
             yield return null;
         }
         Camera.main.cullingMask = -1;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(WaitBeforeStart);
         Stars.lengthScale = -3f;
         LighSpeedActive = false;
         StartText.text = "Start";

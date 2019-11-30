@@ -82,14 +82,20 @@ public class GameController : MonoBehaviour
             timerAliveText.text = "Time Alive: " + timeAlive;
         }
 
-        if (timeAliveDecimal > 20 && timeAlive % 10 == 0 && TimeSpeedReady)
+        if(  timeAliveDecimal < 25  & timeAliveDecimal > 5 & TimeSpeedReady)
         {
-                TimeSpeedReady = false;
-                Time.timeScale += 0.25f;
-                this.GetComponent<ObjectSpawning>().hazardCount =+ 1;
-                StartCoroutine(WaitSecondsTimeSpeed(3));
-  
+            TimeSpeedReady = false;
+            Time.timeScale += 0.005f;
+            StartCoroutine(WaitSecondsTimeSpeed(2));
+
         }
+        else if( timeAliveDecimal > 25 & TimeSpeedReady)
+        {
+            TimeSpeedReady = false;
+            Time.timeScale += 0.10f;
+            StartCoroutine(WaitSecondsTimeSpeed(3));
+        }
+
         if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
