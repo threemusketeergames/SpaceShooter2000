@@ -17,11 +17,12 @@ public class GameController : MonoBehaviour
     static int highscore = 0;
     public int timebouns;
     public Text highScore;
+    public GameObject PlayerData;
 
     public GameObject Player;
 
     public Text restartText;
-    public Text gameOverText;
+    public GameObject Leaderboard;
     public Text timerAliveText;
 
     private bool gameOver;
@@ -65,10 +66,11 @@ public class GameController : MonoBehaviour
         gameOver = false;
         restart = false;
         restartText.text = "";
-        gameOverText.text = "";
+        Leaderboard.gameObject.SetActive(false);
         StartCoroutine(SpawnWaves());
         TimeSpeedReady = true;
         pathManager = GetComponent<PathManager>();
+        PlayerData = GameObject.FindGameObjectWithTag("Playerdata");
     }
 
 
@@ -110,7 +112,9 @@ public class GameController : MonoBehaviour
         {
             highscore = timeAlive;
             highScore.text = "High Score: " + highscore.ToString();
+            Highscores.AddNewHighscore(PlayerData.GetComponent<PlayerData>().PlayerName, highscore);
         }
+
     }
     IEnumerator SpawnWaves()
     {
@@ -149,13 +153,14 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverText.text = "Game Over!";
         Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Instantiate(playerExplosion, Player.transform.position, Player.transform.rotation);
         Camera.parent = null;
         Destroy(Player);
         gameOver = true;
         PlayerHighScored();
+        Leaderboard.gameObject.SetActive(true);
+
     }
     public bool TakeHealth(int amount)
     {
