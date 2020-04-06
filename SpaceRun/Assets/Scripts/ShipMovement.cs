@@ -20,18 +20,12 @@ public class ShipMovement : MonoBehaviour
     void FixedUpdate()
     {
         //!lightSpeed.LighSpeedActive
-        if (true)
+        if (!lightSpeed.LighSpeedActive)
         {
             //Turning left and right
             rb.AddRelativeTorque(Vector3.up * Input.GetAxis("Horizontal") * rotatespeed);
             rb.AddRelativeTorque(Vector3.left * Input.GetAxis("Vertical") * rotatespeed);
-            //Rotation
-            float x;
-            float z;
-            x = Input.GetAxis("Verticle") * rotatespeed;
-            z = Input.GetAxis("Horizontal") * rotatespeed;
 
-       //    rb.gameObject.transform.rotation = Quaternion.Euler(x,0,z);
             //Constant moving foward
             rb.velocity = transform.forward * moveSpeed;
 
