@@ -12,6 +12,7 @@ public class ShipMovement : MonoBehaviour
     private void Start()
     {
         lightSpeed = GameObject.FindWithTag("GameController").GetComponent<LightSpeed>();
+        rb = GetComponent<Rigidbody>();
         //rb.velocity = Vector3.forward * moveSpeed;
     }
 
@@ -28,7 +29,6 @@ public class ShipMovement : MonoBehaviour
 
             //Constant moving foward
             rb.velocity = transform.forward * moveSpeed;
-
 
 
         }
