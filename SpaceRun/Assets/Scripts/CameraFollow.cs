@@ -37,7 +37,7 @@ public class CameraFollow : MonoBehaviour
         
         Vector3 currentPosition = transform.position;
 
-        currentPosition = Vector3.Slerp(currentPosition, wantedPosition, positionDamping* Time.deltaTime);
+        currentPosition = Vector3.Lerp(currentPosition, wantedPosition, positionDamping* Time.deltaTime);
         
         //Lock view distance in place.
         Vector3 deltaVector = currentPosition - player.position;

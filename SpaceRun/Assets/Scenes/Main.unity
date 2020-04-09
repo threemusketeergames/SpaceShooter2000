@@ -11499,10 +11499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6de7f7ca742e348a006f809dae9640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 10
-  height: 5
-  heightDamping: 2
-  rotationDamping: 3
+  positionDamping: 3
 --- !u!1 &1584479174
 GameObject:
   m_ObjectHideFlags: 0
@@ -11977,7 +11974,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904691130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e4d6a3985ac868449fd3221b56b8067, type: 3}
   m_Name: 
@@ -11997,8 +11994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f58c6a77ff4554e8880fbce279146a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerRadius: 6
-  outerRadius: 10
+  innerRadius: 10
+  outerRadius: 20
   enableTubeGizmo: 1
   numCornerBands: 10
   numTubeLines: 8
@@ -12408,6 +12405,18 @@ PrefabInstance:
     - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: rotatespeed
       value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: matchTube
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: rotationCatchup
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_IsTrigger
