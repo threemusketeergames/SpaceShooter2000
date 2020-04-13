@@ -14,7 +14,7 @@ public class RadialProgress : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(currentValue <= 10)
+       if(currentValue <= 1000)
         {
             currentValue -= speed *  Time.unscaledDeltaTime;
 

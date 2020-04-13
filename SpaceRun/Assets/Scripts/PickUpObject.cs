@@ -17,9 +17,9 @@ public class PickUpObject : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            Audio.Play();
+            //Audio.Play();
             Ship.GetComponent<PickUpController>().DeterminPowerUp();
-            Destroy(gameObject);
+            Destroy(this.gameObject);
 
 
         }

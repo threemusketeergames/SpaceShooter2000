@@ -36,9 +36,11 @@ public class PickUpController : MonoBehaviour
         Ready = true;
         //no power up indicator
         CircularProgressBar.SetActive(false);
+        //set force field
     }
     public void Update()
     {
+
         if (Ready)
         {
             PowerupDisplay.text = "Power Up:";
@@ -94,27 +96,28 @@ public class PickUpController : MonoBehaviour
 
     public void PowerUpColor()
     {
+        float number = Random.Range(1, 15);
         //Add to the color then set again
-        PickUpAudio.GetComponent<AudioSource>().Play();
-        CurrentColor.g += 2.0f;
+        //PickUpAudio.GetComponent<AudioSource>().Play();
+        CurrentColor.g += number;
         rend.material.color = CurrentColor;
-        //Slow time down
-        Time.timeScale = 0.75f;
-        StartCoroutine(TimeReturnColor());
-        PowerupDisplay.text = "Power Up: \n Time Slow";
+        StartCoroutine(TimeReturnColor(number));
+        PowerupDisplay.text = "Power Up: \n New Color";
 
     }
-    IEnumerator TimeReturnColor()
+    IEnumerator TimeReturnColor(float Randomnumber)
     {
         //reset time.
         yield return new WaitForSeconds(10);
-        Time.timeScale = 1f;
+        CurrentColor.g -= Randomnumber;
+        rend.material.color = CurrentColor;
         Ready = true;
     }
 
     public void PowerUpForcefield()
     {
-        PickUpAudio.GetComponent<AudioSource>().Play();
+        // PickUpAudio.GetComponent<AudioSource>().Play();
+        ForceField = GameObject.FindGameObjectWithTag("ForceField");
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
         //undestroyable
@@ -130,14 +133,14 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-        PickUpAudio.GetComponent<AudioSource>().Play();
+        //PickUpAudio.GetComponent<AudioSource>().Play();
         this.GetComponent<PlayerController>().StartBuckshot();
       PowerupDisplay.text = "Power Up:\n Buckshot";
 
     }
     public void PowerUpGainLife()
     {
-        LifeGainedAudio.GetComponent<AudioSource>().Play();
+      //  LifeGainedAudio.GetComponent<AudioSource>().Play();
         //gain life
         this.GetComponent<PlayerController>().gamecontrollerscript.GetComponent<GameController>().AddHealth();
         Ready = true;
