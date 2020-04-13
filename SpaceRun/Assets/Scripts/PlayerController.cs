@@ -13,7 +13,12 @@ public class PlayerController : MonoBehaviour
     public GameObject Buckshotbullet;
     public bool buckshoton;
     public float fireRate;
+    private float firelimit;
+    public bool Recharging;
+    public GameObject ProgressBar;
+    public int RechargeTime;
     public bool PlayerInBounds;
+
 
 
     private float nextFire;
@@ -22,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        firelimit = 15;
+        Recharging = false;
         PlayerInBounds = true;
        // Physics.IgnoreLayerCollision(0, 8);
     }
@@ -33,25 +40,42 @@ public class PlayerController : MonoBehaviour
         {
             if (gamecontrollerscript.GetComponent<GameController>().Canshoot && !gamecontrollerscript.GetComponent<LightSpeed>().LighSpeedActive)
             {
-                if (buckshoton)
+                if(firelimit != 0)
                 {
-                    nextFire = Time.time + fireRate;
-                    Instantiate(Buckshotbullet, shotSpawn.position, shotSpawn.rotation);
-                    Instantiate(Buckshotbullet, shotSpawnBuckshot1.position, shotSpawn.rotation);
-                    Instantiate(Buckshotbullet, shotSpawnBuckshot2.position, shotSpawn.rotation);
-                    GetComponent<AudioSource>().Play();
+                    firelimit -= 1;
+                    if (buckshoton)
+                    {
+                        nextFire = Time.time + fireRate;
+                        Instantiate(Buckshotbullet, shotSpawn.position, shotSpawn.rotation);
+                        Instantiate(Buckshotbullet, shotSpawnBuckshot1.position, shotSpawn.rotation);
+                        Instantiate(Buckshotbullet, shotSpawnBuckshot2.position, shotSpawn.rotation);
+                        GetComponent<AudioSource>().Play();
+                    }
+                    else
+                    {
+                        nextFire = Time.time + fireRate;
+                        Instantiate(bullet, shotSpawn.position, shotSpawn.rotation);
+                        GetComponent<AudioSource>().Play();
+                    }
                 }
-                else
-                {
-                    nextFire = Time.time + fireRate;
-                    Instantiate(bullet, shotSpawn.position, shotSpawn.rotation);
-                    GetComponent<AudioSource>().Play();
-                }
+               
             }
 
 
         }
+        if(firelimit == 0 & !Recharging)
+        {
+            Recharging = true;
+            ProgressBar.GetComponent<RadialProgress>().PickUpTimer(RechargeTime);
+            StartCoroutine(ResetFireLimit());
+        }
         
+    }
+    IEnumerator ResetFireLimit()
+    {
+        yield return new WaitForSeconds(RechargeTime);
+        firelimit = 15;
+        Recharging = false;
     }
     public void StartBuckshot()
     {
