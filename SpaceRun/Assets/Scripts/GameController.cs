@@ -153,13 +153,13 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
+        Leaderboard.gameObject.SetActive(true);
         Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Instantiate(playerExplosion, Player.transform.position, Player.transform.rotation);
         Camera.parent = null;
         Destroy(Player);
         gameOver = true;
         PlayerHighScored();
-        Leaderboard.gameObject.SetActive(true);
 
     }
     public bool TakeHealth(int amount)
