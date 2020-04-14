@@ -7,6 +7,7 @@ public class ObjectSpawning : MonoBehaviour
     public GameObject[] hazards; //Options for hazards
     public int hazardCount; //How many per segment
     public PathSpawnManager psm; //pre defined for manager
+    public GameObject PickupPrefab;
 
     void Start()
     {
@@ -23,6 +24,13 @@ public class ObjectSpawning : MonoBehaviour
             Instantiate(hazard, CurrentPoint, Quaternion.LookRotation(-ssi.mainSegment.dir));
             
            // Vector3.RotateTowards()
+        }
+        int number = Random.Range(1, 10);
+        if(number < 2)
+        {
+            Vector3 CurrentPoint = ssi.centerPoint + GizmosUtil.PointOn3DCircle(ssi.mainSegment.dir * Random.Range(0, ssi.mainSegment.length), ssi.mainSegment.rightVector, ssi.mainSegment.upVector, psm.innerRadius / 2f, Random.Range(0, Mathf.PI * 2f));
+            Vector3 up = ssi.useWedgeAngler ? ssi.wedgeAngler.wedgePerpFromMain : ssi.mainSegment.upVector;
+            Instantiate(PickupPrefab, CurrentPoint, Quaternion.LookRotation(-ssi.mainSegment.dir));
         }
 
     }
