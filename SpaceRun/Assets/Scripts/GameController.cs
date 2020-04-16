@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour
         Health -= amount;
         if (Health <= 0)
         {
-            //lost our second life
+            //lost our second life (Keeo comment)
             Canshoot = true;
             EngineParticle.SetActive(true);
             LivesDisplay.text = "Lives:" + "";
@@ -175,7 +175,7 @@ public class GameController : MonoBehaviour
             return true;
         }else
         {
-            //lost first life
+            //lost first life (KEEP comment)
             Canshoot = false;
             EngineParticle.SetActive(false);
             LivesDisplay.text = "Lives:" + "X";

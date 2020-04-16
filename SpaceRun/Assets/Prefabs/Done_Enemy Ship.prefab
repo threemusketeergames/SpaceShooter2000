@@ -4859,7 +4859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365dd2da98dd9431b8c5d7406c200eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot: {fileID: 100000, guid: 11e27c26ac87b40f0a62ec40d7261989, type: 3}
+  shot: {fileID: 100000, guid: 0a3183cf92e1c3b44b0818a782187816, type: 3}
   shotSpawn: {fileID: 5331783164062654966}
   fireRate: 3
   delay: 1
@@ -5008,7 +5008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f64144bf82dd745829b52225b8ef70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 10
+  lifetime: 15
 --- !u!1 &5331783164062654967
 GameObject:
   m_ObjectHideFlags: 0

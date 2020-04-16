@@ -31,6 +31,7 @@ public class PickUpController : MonoBehaviour
         //Set time scale to normal
         Time.timeScale = 1f;
         //set force field to false at start
+        //ForceField = GameObject.FindGameObjectWithTag("ForceField");
         ForceField.SetActive(false);
         //ready to start a NEW power up
         Ready = true;
@@ -60,15 +61,15 @@ public class PickUpController : MonoBehaviour
             CircularProgressBar.SetActive(true);
             CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
 
-            if (number <= 5)
+            if (number <= 6)
             {
                 PowerUpForcefield();
             }
-            else if (number > 5 && number <= 10)
+            else if (number > 6 && number <= 9)
             {
                 PowerUpColor();
             }
-            else if (number >= 11)
+            else if (number >= 10)
             {
                 PowerUpBuckshot();
             }
@@ -117,7 +118,6 @@ public class PickUpController : MonoBehaviour
     public void PowerUpForcefield()
     {
         // PickUpAudio.GetComponent<AudioSource>().Play();
-        ForceField = GameObject.FindGameObjectWithTag("ForceField");
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
         //undestroyable

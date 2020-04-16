@@ -20,9 +20,10 @@ public class DestroyByContact : MonoBehaviour
 		{
 			Debug.Log ("Cannot find 'GameController' script");
 		}
-	}
 
-	void OnTriggerEnter (Collider other)
+    }
+
+    void OnTriggerEnter (Collider other)
 	{
   
 		if (other.tag == "Boundary" || other.tag == "Enemy" || other.tag == "ForceField")
@@ -72,4 +73,5 @@ public class DestroyByContact : MonoBehaviour
         Time.timeScale = 0.0f;
 
     }
+
 }
