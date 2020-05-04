@@ -12427,6 +12427,7 @@ MonoBehaviour:
   timebouns: 0
   highScore: {fileID: 1034744790}
   PlayerData: {fileID: 0}
+  TimeIncreaseWaitTime: 1
   Player: {fileID: 999344246}
   restartText: {fileID: 1118447433}
   Leaderboard: {fileID: 1848646886}
@@ -12464,7 +12465,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2fd365eaa21281345a5207f8940fd7a3, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -13133,6 +13134,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Done_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8309477176962020667, guid: 738bdf56857a65f479c367c7b62c4ad7,
+        type: 3}
+      propertyPath: m_TagString
+      value: ForceField
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309477176962020667, guid: 738bdf56857a65f479c367c7b62c4ad7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -13305,22 +13316,20 @@ PrefabInstance:
       propertyPath: rotationCatchup
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: moveSpeedIncreaseAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 999344248, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
+      propertyPath: rotatespeedIncreaseAmount
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200000, guid: 738bdf56857a65f479c367c7b62c4ad7, type: 3}
       propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8309477176962020667, guid: 738bdf56857a65f479c367c7b62c4ad7,
-        type: 3}
-      propertyPath: m_TagString
-      value: ForceField
-      objectReference: {fileID: 0}
-    - target: {fileID: 8309477176962020667, guid: 738bdf56857a65f479c367c7b62c4ad7,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

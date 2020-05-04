@@ -7,6 +7,8 @@ public class ShipMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float rotatespeed;
+    public float moveSpeedIncreaseAmount;
+    public float rotatespeedIncreaseAmount;
     public Rigidbody rb;
     public bool matchTube;
     public float rotationSmoothing = 0.1f;
@@ -20,6 +22,11 @@ public class ShipMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pm = GameController.Instance.pathManager;
         //rb.velocity = Vector3.forward * moveSpeed;
+    }
+    public void Faster()
+    {
+        moveSpeed += moveSpeedIncreaseAmount;
+        rotatespeed += rotatespeedIncreaseAmount;
     }
 
     Vector3 lastLocalRollVector = Vector3.zero;

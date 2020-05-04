@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public int timebouns;
     public Text highScore;
     public GameObject PlayerData;
+    public float TimeIncreaseWaitTime;
 
     public GameObject Player;
 
@@ -55,14 +56,10 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
-    void Start()
-    {
         Time.timeScale = 1.0f;
         Canshoot = true;
         Health = StartHeath;
         LivesDisplay.text = "Lives:" + "X X";
-        //Player.transform.position = StartPosition.transform.position;
         gameOver = false;
         restart = false;
         restartText.text = "";
@@ -74,28 +71,15 @@ public class GameController : MonoBehaviour
     }
 
 
+
     void Update()
     {
         TimeScaleIndicator = Time.timeScale;
         if(Player != null && !this.GetComponent<LightSpeed>().LighSpeedActive && !gameOver)
         {
-            timeAliveDecimal += Time.unscaledDeltaTime; //not affected by game speeding up. 
+            timeAliveDecimal += Time.unscaledDeltaTime; 
             timeAlive = Mathf.RoundToInt(timeAliveDecimal) + timebouns;
             timerAliveText.text = "Time Alive: " + timeAlive;
-        }
-
-        if(  timeAliveDecimal < 25  & timeAliveDecimal > 5 & TimeSpeedReady)
-        {
-            TimeSpeedReady = false;
-            Time.timeScale += 0.005f;
-            StartCoroutine(WaitSecondsTimeSpeed(2));
-
-        }
-        else if( timeAliveDecimal > 25 & TimeSpeedReady)
-        {
-            TimeSpeedReady = false;
-            Time.timeScale += 0.10f;
-            StartCoroutine(WaitSecondsTimeSpeed(3));
         }
 
         if (restart)
@@ -104,6 +88,18 @@ public class GameController : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+        }
+    }
+
+    IEnumerator Start()
+    {
+        while (true)
+        {
+            if(!this.GetComponent<LightSpeed>().LighSpeedActive && !gameOver)
+            {
+                Player.GetComponent<ShipMovement>().Faster();
+            }
+            yield return new WaitForSeconds(TimeIncreaseWaitTime);
         }
     }
     public void PlayerHighScored()
@@ -124,11 +120,9 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < hazardCount; i++)
             {
                 GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                // Spawin where??? ...rn..ahead of the player
                 Vector3 spawnPosition = new Vector3(Player.transform.position.x, Player.transform.position.y, (Player.transform.position.z + DistanceFromPlayer));
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
-                //
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
@@ -154,12 +148,10 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         Leaderboard.gameObject.SetActive(true);
-        Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Instantiate(playerExplosion, Player.transform.position, Player.transform.rotation);
-        Camera.parent = null;
-        Destroy(Player);
         gameOver = true;
         PlayerHighScored();
+        Destroy(Player);
 
     }
     public bool TakeHealth(int amount)
