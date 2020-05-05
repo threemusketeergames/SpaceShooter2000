@@ -150,8 +150,8 @@ public class GameController : MonoBehaviour
         Leaderboard.gameObject.SetActive(true);
         Instantiate(playerExplosion, Player.transform.position, Player.transform.rotation);
         gameOver = true;
-        PlayerHighScored();
         Destroy(Player);
+        PlayerHighScored();
 
     }
     public bool TakeHealth(int amount)
