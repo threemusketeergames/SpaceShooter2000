@@ -15,6 +15,10 @@ public class ButtonActions : MonoBehaviour
     {
           SceneManager.LoadScene(SceneName);
     }
+    public void DeletePlayerData()
+    {
+        Destroy(this.GetComponent<GameController>().PlayerData);
+    }
     public void LoadMain()
     {
         this.GetComponent<BeggingTransition>().StartMove();

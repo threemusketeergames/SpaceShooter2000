@@ -45,23 +45,28 @@ public class DestroyByContact : MonoBehaviour
 
         if (other.tag == "Player")
 		{
-            //demote the health in gamecontroller
-            if (gameController.TakeHealth(50))
+            if (!gameController.Player.GetComponent<PickUpController>().Forcefieldinitiated)
             {
-                //remove parent before destroying ship
-                Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-                Camera.parent = null;
-                Instantiate(explosion, transform.position, transform.rotation);
-                Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-                Destroy(other.gameObject);
-                Destroy(gameObject);
-                StartCoroutine(TimeStop());
+                //demote the health in gamecontroller
+                if (gameController.TakeHealth(50))
+                {
+                    //remove parent before destroying ship
+                    Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+                    Camera.parent = null;
+                    Instantiate(explosion, transform.position, transform.rotation);
+                    Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+                    Destroy(other.gameObject);
+                    Destroy(gameObject);
+                    StartCoroutine(TimeStop());
+                }
+                else
+                {
+                    Instantiate(explosion, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                }
             }
-            else
-            {
-                Instantiate(explosion, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
+
+            
            
 		}
 

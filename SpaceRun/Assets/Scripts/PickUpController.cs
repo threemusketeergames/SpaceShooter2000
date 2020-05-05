@@ -16,26 +16,19 @@ public class PickUpController : MonoBehaviour
     public int PowerupLastTime;
     public GameObject PickUpAudio;
     public GameObject LifeGainedAudio;
+    public bool Forcefieldinitiated;
 
 
     //public Transform CircularProgressBarSpawn;
 
     void Start()
     {
-        //Get the renderer of the object so we can access the color
         rend = GetComponent<Renderer>();
-        //Set the initial color (0f,0f,0f,0f)
         CurrentColor.g = 0f;
-        //Set the render to the color
         rend.material.color = CurrentColor;
-        //Set time scale to normal
         Time.timeScale = 1f;
-        //set force field to false at start
-        //ForceField = GameObject.FindGameObjectWithTag("ForceField");
         ForceField.SetActive(false);
-        //ready to start a NEW power up
         Ready = true;
-        //no power up indicator
         CircularProgressBar.SetActive(false);
         //set force field
     }
@@ -118,6 +111,7 @@ public class PickUpController : MonoBehaviour
     public void PowerUpForcefield()
     {
         // PickUpAudio.GetComponent<AudioSource>().Play();
+        Forcefieldinitiated = true;
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
         //undestroyable
@@ -129,6 +123,7 @@ public class PickUpController : MonoBehaviour
         //disable forcefield.
         yield return new WaitForSeconds(10);
         ForceField.SetActive(false);
+        Forcefieldinitiated = false;
         Ready = true;
     }
     public void PowerUpBuckshot()
