@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ProgressBar;
     public int RechargeTime;
     public bool PlayerInBounds;
+    public AudioSource BulletSound;
 
 
 
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
                     {
                         nextFire = Time.time + fireRate;
                         Instantiate(bullet, shotSpawn.position, shotSpawn.rotation);
-                        GetComponent<AudioSource>().Play();
+                        this.GetComponent<AudioSource>().Play();
                     }
                 }
                

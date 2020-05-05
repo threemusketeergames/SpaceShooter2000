@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
 
             if (gameOver)
             {
-                restartText.text = "Press 'R' for Restart";
+                restartText.text = "Press 'R' for Restart! \n This will also end any lagging.";
                 restart = true;
                 break;
             }

@@ -72,7 +72,6 @@ public class PickUpController : MonoBehaviour
             Ready = false;
             if (number <= 7)
             {
-                //here because gaining life dosent need a bar
                 CircularProgressBar.SetActive(true);
                 CircularProgressBar.GetComponent<RadialProgress>().PickUpTimer(10);
                 PowerUpColor();
@@ -91,8 +90,7 @@ public class PickUpController : MonoBehaviour
     public void PowerUpColor()
     {
         float number = Random.Range(1, 15);
-        //Add to the color then set again
-        //PickUpAudio.GetComponent<AudioSource>().Play();
+        PickUpAudio.GetComponent<AudioSource>().Play();
         CurrentColor.g += number;
         rend.material.color = CurrentColor;
         StartCoroutine(TimeReturnColor(number));
@@ -101,7 +99,6 @@ public class PickUpController : MonoBehaviour
     }
     IEnumerator TimeReturnColor(float Randomnumber)
     {
-        //reset time.
         yield return new WaitForSeconds(10);
         CurrentColor.g -= Randomnumber;
         rend.material.color = CurrentColor;
@@ -110,17 +107,15 @@ public class PickUpController : MonoBehaviour
 
     public void PowerUpForcefield()
     {
-        // PickUpAudio.GetComponent<AudioSource>().Play();
+        PickUpAudio.GetComponent<AudioSource>().Play();
         Forcefieldinitiated = true;
         ForceField.SetActive(true);
         StartCoroutine(TimeReturnForcefield());
-        //undestroyable
         PowerupDisplay.text = "Power Up: \n Force Field";
 
     }
     IEnumerator TimeReturnForcefield()
     {
-        //disable forcefield.
         yield return new WaitForSeconds(10);
         ForceField.SetActive(false);
         Forcefieldinitiated = false;
@@ -128,15 +123,14 @@ public class PickUpController : MonoBehaviour
     }
     public void PowerUpBuckshot()
     {
-        //PickUpAudio.GetComponent<AudioSource>().Play();
+        PickUpAudio.GetComponent<AudioSource>().Play();
         this.GetComponent<PlayerController>().StartBuckshot();
       PowerupDisplay.text = "Power Up:\n Buckshot";
 
     }
     public void PowerUpGainLife()
     {
-      //  LifeGainedAudio.GetComponent<AudioSource>().Play();
-        //gain life
+        LifeGainedAudio.GetComponent<AudioSource>().Play();
         this.GetComponent<PlayerController>().gamecontrollerscript.GetComponent<GameController>().AddHealth();
         Ready = true;
 
