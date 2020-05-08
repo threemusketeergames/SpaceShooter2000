@@ -58,6 +58,7 @@ public class PathManager : MonoBehaviour
         SendMessage("WaypointRemoved");
     }
 
+    bool isFirstFeature = true;
     IEnumerator<Vector3> GetFeatureGenerator()
     {
         Vector3 startPosition = Waypoints?.LastOrDefault() ?? Vector3.zero;
@@ -67,7 +68,17 @@ public class PathManager : MonoBehaviour
             startDirection = startPosition - Waypoints.ElementAt(Waypoints.Count - 2); //1 from end
             startDirection.Normalize();
         }
-        return pathFeatures.Single().GetGenerator(startPosition, startDirection, StepDist, 50f);
+        PathFeature feature;
+        if (isFirstFeature)
+        {
+            feature = pathFeatures.First();
+            isFirstFeature = false;
+        }
+        else
+        {
+            feature = pathFeatures.Last();
+        }
+        return feature.GetGenerator(startPosition, startDirection, StepDist, 50f);
     }
     private void Update()
     {
