@@ -41,7 +41,7 @@ public class EvasiveManeuver : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-        if (!Gamecontroller.GetComponent<LightSpeed>().LighSpeedActive)
+        if (!Gamecontroller.GetComponent<LightSpeed>().LighSpeedActive & Gamecontroller.GetComponent<GameController>().Player != null)
         {
             float newManeuver = Mathf.MoveTowards(GetComponent<Rigidbody>().velocity.x, targetManeuver, smoothing * Time.deltaTime);
             GetComponent<Rigidbody>().velocity = new Vector3(newManeuver, 0.0f, currentSpeed);

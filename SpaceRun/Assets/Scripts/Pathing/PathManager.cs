@@ -82,7 +82,7 @@ public class PathManager : MonoBehaviour
     }
     private void Update()
     {
-        if (NumWaypoints < 3)
+        if (NumWaypoints < 3 || player == null)
         {
             Debug.LogWarning("Waypoint Path Following doesn't work with fewer than three waypoints");
             return;
