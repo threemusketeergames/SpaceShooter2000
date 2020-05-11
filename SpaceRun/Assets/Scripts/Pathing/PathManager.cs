@@ -88,8 +88,8 @@ public class PathManager : MonoBehaviour
             return;
         }
         Vector3 playerPos = player.position;
-        float d2 = (Waypoints.ElementAt(1) - playerPos).magnitude; //Distance from player to point 2 (index 1)
-        float d3 = (Waypoints.ElementAt(2) - playerPos).magnitude; //Distance from player to point 3 (index 2)
+        float d2 = (Waypoints.ElementAt(2) - playerPos).magnitude; //Distance from player to point 2 (index 1)
+        float d3 = (Waypoints.ElementAt(3) - playerPos).magnitude; //Distance from player to point 3 (index 2)
         if (d3 < d2) //Basically, when we're over halfway into the second segment (between points 2 and 3) ...
         {
             RemoveOldPoint(); // ...Take off the now-unseen segment
