@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public Text highScore;
     public GameObject PlayerData;
     public float TimeIncreaseWaitTime;
+    public Text Name;
 
     public GameObject Player;
 
@@ -44,8 +45,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        highScore.text = "High Score: " + highscore.ToString();
-
+        //highScore.text = "High Score: " + highscore.ToString();
 
         if (Instance == null)
         {
@@ -68,6 +68,8 @@ public class GameController : MonoBehaviour
         TimeSpeedReady = true;
         pathManager = GetComponent<PathManager>();
         PlayerData = GameObject.FindGameObjectWithTag("Playerdata");
+        Name.text = PlayerData.GetComponent<PlayerData>().PlayerName;
+        
     }
 
 

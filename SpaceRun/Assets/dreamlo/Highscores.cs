@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class Highscores : MonoBehaviour
 {
@@ -11,11 +14,17 @@ public class Highscores : MonoBehaviour
     DisplayHighScores highscoreDisplay;
     public Highscore[] highscoresList;
     static Highscores instance;
+    public string playerhighscore;
+    public GameObject PlayerdataO;
+    public Text HighScoreTextO;
 
     void Awake()
     {
         highscoreDisplay = GetComponent<DisplayHighScores>();
         instance = this;
+        PlayerdataO = GameObject.FindGameObjectWithTag("Playerdata");
+        GetSingleScore(PlayerdataO.GetComponent<PlayerData>().PlayerName);
+
     }
 
     public static void AddNewHighscore(string username, int score)
@@ -75,9 +84,38 @@ public class Highscores : MonoBehaviour
         }
     }
 
-}
+    public void GetSingleScore(string playerName)
+    {
+        playerhighscore = "";
+        if(playerName == "")
+        {
+            HighScoreTextO.text = "Highscore: ";
+        }
+        else
+        {
+            StartCoroutine(GetRequest(webURL + publicCode + "/pipe-get/" + UnityWebRequest.EscapeURL(playerName)));
+        }
+    }
 
-public struct Highscore
+    IEnumerator GetRequest(string url)
+    {
+        // Something not working? Try copying/pasting the url into your web browser and see if it works.
+        // Debug.Log(url);
+
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+            playerhighscore = www.downloadHandler.text;
+            string[] searchItems = playerhighscore.Split('|');
+            string result = searchItems[1].Trim();
+            HighScoreTextO.text = "HighScore: " + result;
+        }
+
+        
+
+    }
+}
+    public struct Highscore
 {
     public string username;
     public int score;
